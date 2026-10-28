@@ -70,9 +70,6 @@ The current OML starter vocabulary includes initial domain concepts such as `Rov
 
 > 🔍 This vocabulary is a starting point for refinement. Definitions, specializations, units, and property domains should be reviewed as the model evolves. In particular, keep physical components distinct from software functions where that distinction matters to architecture or resource accounting.
 
-<p align="center">
-  <img src="docs/images/architecture.png" width="650" alt="Khonsu system architecture">
-</p>
 
 
 ## 📚 Data sources to incorporate
