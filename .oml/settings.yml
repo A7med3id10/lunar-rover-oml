@@ -1,0 +1,29 @@
+# oml-code settings
+oml-code:
+  schemaVersion: 1
+
+# project npm settings
+project:
+  name: "@modelware/khonsu-method"
+  version: 1.0.0
+  title: khonsu Method
+  description: The khonsu modeling method
+
+# source folders
+sources:
+  - src
+
+# oml server settings
+#server:
+#  port: 8080
+
+# packing settings
+# pack:
+#   - include: [src/method]
+
+# oml-cli parameter defaults
+defaults:
+  export: -o build/owl
+  reason: -o build/owl -t
+  # render: -m src/model/md -b build/web -c src/model/oml/khonsu/bundle.oml
+  pack: -o build/dist
