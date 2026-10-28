@@ -6,24 +6,25 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
 
     // Part A - Initial vocabulary  
     
-    concept Sensor < base:Element
-    concept Actuator < base:Element
-    
-    concept Terrain < base:Element
-    concept Hazard < base:Element
-    concept Resource < base:Element
-    concept State < base:Element
-    
     @dc:description "A Mission is a high-level objective."
     concept Mission < base:Element
+    
+    @dc:description "A Hazard is a threat to the mission."
+    concept Hazard < base:Element
 
-    @dc:description "A component is a part of a system."
+    @dc:description "A Terrain is a lunar surface feature."
+    concept Terrain < base:Element
+
+    @dc:description "A Rover is an autonomous system to explore the lunar surface."
     concept Rover < base:Element
 
-    @dc:description "A component is a part of a system."
+    @dc:description "A State is a description of the rover's condition."
+    concept State < base:Element
+
+    @dc:description "A Satellite is a space-based system."
     concept Satellite < base:Element
 
-    @dc:description "A component is a part of a system."
+    @dc:description "A GroundStation is a terrestrial system for communicating with space assets."
     concept GroundStation < base:Element
      
     @dc:description "A component is a part of a system."
@@ -35,46 +36,82 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     @dc:description "A Capability is a feature that a system can perform."
     concept Capability < base:Element
 
-    @dc:description "A SubSystem is a component of a larger system."
-    concept SubSystem < Component  
+    
 
 
     // Taxonomy / specialization
+
+    @dc:description "A SubSystem is a component of a larger system."
+    concept SubSystem < Component  
+       
+    @dc:description "An Actuator is a component that applies forces or controls physical properties."
+    concept Actuator < Component
+
+    @dc:description "A Sensor is a component that detects or measures physical properties."
+    concept Sensor < Component
+
+    @dc:description "A WheeledRover is a type of rover with wheels."
     concept WheeledRover < Rover
+
+    @dc:description "A TrackedRover is a type of rover with tracks."
     concept TrackedRover < Rover
+
+    @dc:description "A CameraSensor is a type of sensor that captures images."
     concept CameraSensor < Sensor
+
+    @dc:description "An FPGA is a type of component for high-speed processing."
+    concept FPGA < Component
+
+    @dc:description "A LiDAR sensor is a type of sensor that uses laser light to measure distances."
     concept LiDARSensor < Sensor
+
+    @dc:description "A Navigation capability is a feature that enables a system to determine its position and orientation."
     concept NavigationCapability < Capability
+
+    @dc:description "A Mobility capability is a feature that enables a system to move from one location to another."
     concept MobilityCapability < Capability
 
     // Scalar properties
+
+    @dc:description "A LinkBudget is a constraint on the communication link between a rover and a ground station."
     scalar property LinkBudget [
         domain Rover
         range xsd:double
         functional
     ]
-
+ 
+   @dc:description "A DataRate is the amount of data that can be transmitted over the communication link between a rover and a ground station."
     scalar property DataRate [
         domain Rover
         range xsd:double
         functional
     ]
-
+    
+   @dc:description "A batteryLevel is a measure of the remaining charge in a rover's battery."
     scalar property batteryLevel [
         domain Rover
         range xsd:double
         functional
     ]
 
+    @dc:description "A speed is a measure of the speed of a rover."
     scalar property speed [
         domain Rover
         range xsd:double
         functional
     ]
+   
 
+  @dc:description "A Risk Level level assigned to an element."
+    scalar RiskLevel [
+        oneOf "Low", "Medium", "High"
+    ] = xsd:string
+
+   @dc:description "A Risk Level is a measure of the risk associated with a hazard."
     scalar property riskLevel [
         domain Hazard
-        range xsd:string
+        range RiskLevel
         functional
     ]
+
 }
