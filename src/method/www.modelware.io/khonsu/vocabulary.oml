@@ -6,21 +6,34 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
 
     // Part A - Initial vocabulary  
     
-    concept Rover < base:Element
-    concept Mission < base:Element
     concept Sensor < base:Element
     concept Actuator < base:Element
-    concept Capability < base:Element
+    
     concept Terrain < base:Element
     concept Hazard < base:Element
     concept Resource < base:Element
     concept State < base:Element
+    
+    @dc:description "A Mission is a high-level objective."
+    concept Mission < base:Element
+
+    @dc:description "A component is a part of a system."
+    concept Rover < base:Element
+
+    @dc:description "A component is a part of a system."
+    concept Satellite < base:Element
+
+    @dc:description "A component is a part of a system."
+    concept GroundStation < base:Element
      
     @dc:description "A component is a part of a system."
     concept Component < base:Container, base:Contained, base:Element
 
     @dc:description "A Stakeholder is an entity that has interests in Requirements (people, organizations)."
     concept Stakeholder < base:Categorized, base:Element
+    
+    @dc:description "A Capability is a feature that a system can perform."
+    concept Capability < base:Element
 
     @dc:description "A SubSystem is a component of a larger system."
     concept SubSystem < Component  
@@ -35,9 +48,15 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     concept MobilityCapability < Capability
 
     // Scalar properties
-    scalar property autonomyLevel [
+    scalar property LinkBudget [
         domain Rover
-        range xsd:string
+        range xsd:double
+        functional
+    ]
+
+    scalar property DataRate [
+        domain Rover
+        range xsd:double
         functional
     ]
 
