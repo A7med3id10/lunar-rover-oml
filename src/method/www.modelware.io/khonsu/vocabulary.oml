@@ -1,0 +1,61 @@
+@dc:title "Khonsu Vocabulary"
+vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
+    extends <http://purl.org/dc/elements/1.1/> as dc
+    extends <http://www.w3.org/2001/XMLSchema#> as xsd
+    extends <https://www.modelware.io/khonsu/base#> as base
+
+    // Part A - Initial vocabulary  
+    
+    concept Rover < base:Element
+    concept Mission < base:Element
+    concept Sensor < base:Element
+    concept Actuator < base:Element
+    concept Capability < base:Element
+    concept Terrain < base:Element
+    concept Hazard < base:Element
+    concept Resource < base:Element
+    concept State < base:Element
+     
+    @dc:description "A component is a part of a system."
+    concept Component < base:Container, base:Contained, base:Element
+
+    @dc:description "A Stakeholder is an entity that has interests in Requirements (people, organizations)."
+    concept Stakeholder < base:Categorized, base:Element
+
+    @dc:description "A SubSystem is a component of a larger system."
+    concept SubSystem < Component  
+
+
+    // Taxonomy / specialization
+    concept WheeledRover < Rover
+    concept TrackedRover < Rover
+    concept CameraSensor < Sensor
+    concept LiDARSensor < Sensor
+    concept NavigationCapability < Capability
+    concept MobilityCapability < Capability
+
+    // Scalar properties
+    scalar property autonomyLevel [
+        domain Rover
+        range xsd:string
+        functional
+    ]
+
+    scalar property batteryLevel [
+        domain Rover
+        range xsd:double
+        functional
+    ]
+
+    scalar property speed [
+        domain Rover
+        range xsd:double
+        functional
+    ]
+
+    scalar property riskLevel [
+        domain Hazard
+        range xsd:string
+        functional
+    ]
+}

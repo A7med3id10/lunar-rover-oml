@@ -1,10 +1,10 @@
 @dc:title "Base Vocabulary"
-@dc:description "The base vocabulary for Sierra modeling language."
-vocabulary <https://www.modelware.io/sierra/base#> as base {
+@dc:description "The base vocabulary for Khonsu modeling language."
+vocabulary <https://www.modelware.io/khonsu/base#> as base {
     extends <http://purl.org/dc/elements/1.1/> as dc
     extends <http://www.w3.org/2001/XMLSchema#> as xsd
 
-    @dc:description "A general model element; the root of the Sierra type hierarchy."
+    @dc:description "A general model element; the root of the Khonsu type hierarchy."
     aspect Element
 
     @dc:description "An element that can contain other elements (e.g., a StateMachine or LifeLine)."
