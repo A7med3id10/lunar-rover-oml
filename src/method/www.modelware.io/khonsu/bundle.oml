@@ -1,0 +1,7 @@
+@dc:title "Khonsu Bundle"
+@dc:description "A bundle for the Khonsu rover modeling method"
+vocabulary bundle <https://www.modelware.io/khonsu/bundle#> as v-bundle {
+    includes <http://purl.org/dc/elements/1.1/> as dc
+    includes <https://www.modelware.io/khonsu/base#>
+    includes <https://www.modelware.io/khonsu/vocabulary#>
+}
