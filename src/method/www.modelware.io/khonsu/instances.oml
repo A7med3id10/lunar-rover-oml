@@ -1,0 +1,12 @@
+@dc:title "Khonsu Instances"
+description <https://www.modelware.io/khonsu/instances#> as instances {
+    uses <http://purl.org/dc/elements/1.1/> as dc
+    uses <https://www.modelware.io/khonsu/base#> as base
+    uses <https://www.modelware.io/khonsu/vocabulary#> as khonsu
+
+    // Task 4+5+6 @ Eng. Hoda
+    instance Mission1 : khonsu:Mission [
+        base:description "Lunar Rover Exploration Mission"
+    ]
+
+}
