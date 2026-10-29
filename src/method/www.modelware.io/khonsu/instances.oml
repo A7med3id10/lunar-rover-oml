@@ -4,9 +4,218 @@ description <https://www.modelware.io/khonsu/instances#> as instances {
     uses <https://www.modelware.io/khonsu/base#> as base
     uses <https://www.modelware.io/khonsu/vocabulary#> as khonsu
 
-    // Task 4+5+6 @ Eng. Hoda
-    instance Mission1 : khonsu:Mission [
+    // Task 4: relations from/to/reverse
+@dc:description "A rover executes a mission."
+relation entity Executes [
+    from Rover
+    to Mission
+    forward executes
+    reverse isExecutedBy
+] < base:Element
+
+@dc:description "A sensor enables a navigation capability."
+relation entity Enables [
+    from Sensor
+    to NavigationCapability
+    forward enables
+    reverse isEnabledBy
+] < base:Element
+
+@dc:description "An actuator drives a mobility capability."
+relation entity Drives [
+    from Actuator
+    to MobilityCapability
+    forward drives
+    reverse isDrivenBy
+] < base:Element
+
+@dc:description "A hazard threatens a mission."
+relation entity Threatens [
+    from Hazard
+    to Mission
+    forward threatens
+    reverse isThreatenedBy
+] < base:Element
+
+@dc:description "A hazard degrades a capability."
+relation entity Degrades [
+    from Hazard
+    to Capability
+    forward degrades
+    reverse isDegradedBy
+] < base:Element
+
+@dc:description "A state is entered when a condition holds."
+relation entity IsEnteredWhen [
+    from State
+    to base:Condition
+    forward isEnteredWhen
+    reverse triggersEntryTo
+] < base:Element
+
+// Task 6
+// ===== Rover and mission =====
+instance Mission1 : khonsu:Mission [
         base:description "Lunar Rover Exploration Mission"
     ]
+instance Khonsu : component:WheeledRover [
+    base:description "Khonsu: the lunar rover under design (wheeled, autonomous)."
+    component:executes SouthPoleTraverse
+    component:provides AutonomousNavigation
+    component:provides RockerBogieLocomotion
+    component:traverses ShackletonRim
+    component:traverses ConnectingRidge
+]
+
+instance SouthPoleTraverse : component:Mission [
+    base:description "Notional south-polar traverse mission with 50-70 h night hibernation (durations TBD)."
+]
+
+// ===== Terrain =====
+instance ShackletonRim : component:Terrain [
+    base:description "Rim of Shackleton crater near the lunar south pole; candidate region of interest."
+]
+
+// ===== Hazards =====
+instance ColdSoak : component:Hazard [
+    base:description "Extreme cold soak during lunar night and in permanently shadowed regions."
+    component:threatens SouthPoleTraverse
+    component:degrades RockerBogieLocomotion
+    component:riskLevel "High"
+]
+
+instance LunarDustContamination : component:Hazard [
+    base:description "Electrostatically charged, abrasive regolith dust that fouls seals, wheels, and radiators."
+    component:threatens SouthPoleTraverse
+    component:degrades RockerBogieLocomotion
+    component:riskLevel "Medium"
+]
+
+instance RegolithSlipEntrapment : component:Hazard [
+    base:description "Loose regolith on steep slopes causing excessive wheel slip or entrapment."
+    component:threatens SouthPoleTraverse
+    component:degrades RockerBogieLocomotion
+    component:riskLevel "High"
+]
+
+instance DTELineOfSightLoss : component:Hazard [
+    base:description "Loss of direct-to-Earth line of sight on polar terrain; drives competency question Q5."
+    component:threatens SouthPoleTraverse
+    component:degrades AutonomousNavigation
+    component:riskLevel "Medium"
+]
+
+// ===== Capabilities =====
+instance AutonomousNavigation : component:NavigationCapability [
+    base:description "Ability to localize and plan a path without ground contact."
+]
+
+instance RockerBogieLocomotion : component:MobilityCapability [
+    base:description "Ability to drive over slopes and loose regolith using a rocker-bogie suspension."
+]
+
+// ===== Subsystems =====
+instance NavigationSubsystem : component:SubSystem [
+    base:description "Perception and localization subsystem."
+    base:contains NavCam
+    base:contains OusterLiDAR
+    base:contains HoneywellIMU
+    base:contains KintexFPGA
+]
+
+instance MobilitySubsystem : component:SubSystem [
+    base:description "Drive and steering subsystem."
+    base:contains WheelDriveMotor
+]
+
+// ===== Components =====
+instance NavCam : component:CameraSensor [
+    base:description "Stereo navigation camera pair; candidate, Mars 2020 Navcam-class heritage."
+    component:enables AutonomousNavigation
+]
+
+instance OusterLiDAR : component:LiDARSensor [
+    base:description "3D LiDAR for hazard detection; candidate, Ouster OS-series (a space-qualified unit is required)."
+    component:enables AutonomousNavigation
+]
+
+instance HoneywellIMU : component:Sensor [
+    base:description "Inertial measurement unit for dead reckoning; candidate, Honeywell HG4930."
+    component:enables AutonomousNavigation
+]
+
+instance KintexFPGA : component:FPGA [
+    base:description "Radiation-tolerant FPGA for vision processing; candidate, AMD Xilinx XQRKU060 Kintex UltraScale."
+]
+
+instance WheelDriveMotor : component:Actuator [
+    base:description "Brushless wheel drive motor; candidate, Maxon EC-i series."
+    component:drives RockerBogieLocomotion
+]
+
+instance solarPanel : component:Component [
+    base:description "Triple-junction solar panel (typically GaAs-based cells); sizing and area TBD."
+]
+
+// ===== Satellites =====
+instance LunarReconnaissanceOrbiter : component:Satellite [
+    base:description "NASA Lunar Reconnaissance Orbiter: source of south-polar imagery and terrain data (LOLA, LROC)."
+]
+
+instance LunarGateway : component:Satellite [
+    base:description "Planned NASA-led lunar-orbit station; candidate communications relay."
+]
+
+// ===== Ground stations =====
+instance DSNGoldstone : component:GroundStation [
+    base:description "NASA Deep Space Network, Goldstone, California (70 m antenna DSS-14)."
+]
+
+instance DSNCanberra : component:GroundStation [
+    base:description "NASA Deep Space Network, Canberra, Australia (70 m antenna DSS-43)."
+]
+
+instance ESTRACKMalargue : component:GroundStation [
+    base:description "ESA ESTRACK deep-space station at Malargue, Argentina (35 m antenna)."
+]
+
+// ===== Stakeholders =====
+instance MissionOperationsTeam : component:Stakeholder [
+    base:description "Team that plans traverses and commands the rover."
+    component:hasInterestIn SouthPoleTraverse
+    base:category "Operations"
+]
+
+instance ScienceTeam : component:Stakeholder [
+    base:description "Team that defines payload and science objectives."
+    component:hasInterestIn SouthPoleTraverse
+    base:category "Science"
+]
+
+// ===== Conditions and states =====
+instance LinkLossCondition : base:Condition [
+    base:description "Direct-to-Earth line of sight lost for longer than a threshold (threshold TBD)."
+    base:expression "DTE_link_state == LOS for t > t_loss_TBD"
+]
+
+instance LowBatteryCondition : base:Condition [
+    base:description "Battery state of charge below the safe-mode threshold (value TBD)."
+    base:expression "battery_SoC < SoC_safe_TBD"
+]
+
+instance NominalTraverse : component:State [
+    base:description "Normal driving and science operation."
+]
+
+instance LunarNightHibernation : component:State [
+    base:description "Reduced-power hold through the lunar night (50-70 h window)."
+]
+
+instance SafeMode : component:State [
+    base:description "Rover halts and waits for ground commands; entered on link loss without autonomy permission or low battery."
+    component:isEnteredWhen LinkLossCondition
+    component:isEnteredWhen LowBatteryCondition
+]
+    
 
 }
