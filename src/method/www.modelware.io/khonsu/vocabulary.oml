@@ -8,6 +8,10 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     
     @dc:description "A Mission is a high-level objective."
     concept Mission < base:Element
+[
+    restricts relation isExecutedBy to min 1 Rover
+    restricts relation isOfInterestTo to min 1 Stakeholder
+]
     
     @dc:description "A Hazard is a threat to the mission."
     concept Hazard < base:Element
@@ -17,6 +21,11 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
 
     @dc:description "A Rover is an autonomous system to explore the lunar surface."
     concept Rover < base:Element
+[
+    restricts relation executes to min 1 Mission
+    restricts relation provides to min 1 MobilityCapability
+    restricts relation provides to min 1 NavigationCapability
+]
 
     @dc:description "A State is a description of the rover's condition."
     concept State < base:Element
@@ -70,6 +79,10 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
 
     @dc:description "A Mobility capability is a feature that enables a system to move from one location to another."
     concept MobilityCapability < Capability
+[
+    restricts relation isDrivenBy to min 1 Actuator
+    restricts relation isProvidedBy to min 1 Rover
+]
 
     // Scalar properties
 
