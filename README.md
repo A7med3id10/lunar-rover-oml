@@ -23,6 +23,16 @@ Khonsu is an OML-based modeling method intended to bring the rover's system arch
 - 🛰️ Support analysis of nominal, off-nominal, and safety-related operating scenarios.
 - 🧠 Use OML validation and reasoning to identify modeling and logical consistency issues.
 
+## 🧭 Methodology at a glance
+
+Khonsu connects mission intent to rover design, operations, analysis, and verification in one traceable OML model:
+
+<div align="center">
+  <img src="img/khonsu-methodology.svg" alt="Khonsu methodology block diagram showing mission inputs flowing through requirements, capabilities, rover architecture, resource and risk analysis, and verification, with findings feeding back into the design." width="100%">
+</div>
+
+The methodology is intended to use shared OML vocabulary for consistent definitions, traceability, validation, and reasoning. This diagram shows the intended approach; the current repository contains an initial vocabulary and model starter, while detailed budgets, analysis, and verification evidence remain planned work.
+
 ## 🚧 System boundary
 
 ### ✅ Included in the intended model
@@ -66,7 +76,7 @@ The model is intended to help answer questions such as:
 
 ## 🧩 Current model starter
 
-The current OML starter vocabulary includes initial domain concepts such as `Rover`, `Component`, `SubSystem`, `Sensor`, `Actuator`, `Mission`, `Capability`, `Terrain`, `Hazard`, `Resource`, and `State`. It also contains early specializations and scalar properties.
+The current OML starter vocabulary includes initial domain concepts such as `Rover`, `Component`, `SubSystem`, `Sensor`, `Actuator`, `Mission`, `Capability`, `Terrain`, `Hazard`, and `State`. It also contains early specializations and scalar properties.
 
 The instance model demonstrates an initial traceability chain from the top-level mission through the traverse, draft requirements, satisfying capabilities, implementing subsystems, and contained components. Requirement thresholds and verification procedures remain preliminary or TBD pending engineering definition.
 
