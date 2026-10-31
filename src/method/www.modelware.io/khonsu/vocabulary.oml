@@ -15,6 +15,9 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     restricts   isExecutedBy to min 1 Rover
     //restricts   isOfInterestTo to min 1 Stakeholder
 ]
+
+    @dc:description "A verifiable statement of a mission or system need."
+    concept Requirement < base:Expressible, base:Element
     
     @dc:description "A Hazard is a threat to the mission."
     concept Hazard < base:Element
@@ -23,7 +26,7 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     concept Terrain < base:Element
 
     @dc:description "A Rover is an autonomous system to explore the lunar surface."
-    concept Rover < base:Element
+    concept Rover < base:Container, base:Element
 [
     restricts   executes to min 1 Mission
     //restricts   provides to min 1 MobilityCapability
@@ -87,6 +90,54 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     //restricts   isProvidedBy to min 1 Rover
 ]
 
+    @dc:description "A rover aggregates its subsystems and other directly managed components."
+    relation entity Aggregates [
+        from Rover
+        to Component
+        forward aggregates
+        reverse isAggregatedBy
+    ] < base:Contains
+
+    @dc:description "A component is composed of nested components; this relation can be applied recursively."
+    relation entity Composes [
+        from Component
+        to Component
+        forward composes
+        reverse isComposedIn
+    ] < base:Contains
+
+    @dc:description "A mission is decomposed into subordinate missions."
+    relation entity MissionDecomposition [
+        from Mission
+        to Mission
+        forward decomposes
+        reverse isDecomposedFrom
+    ] < base:Element
+
+    @dc:description "A mission pursues one or more requirements."
+    relation entity Pursuit [
+        from Mission
+        to Requirement
+        forward pursues
+        reverse isPursuedBy
+    ] < base:Element
+
+    @dc:description "A capability satisfies a requirement."
+    relation entity Satisfaction [
+        from Capability
+        to Requirement
+        forward satisfies
+        reverse isSatisfiedBy
+    ] < base:Element
+
+    @dc:description "A subsystem implements a capability."
+    relation entity CapabilityImplementation [
+        from Capability
+        to SubSystem
+        forward implementedBy
+        reverse implements
+    ] < base:Element
+
     // Task 3: Scalar properties
 
 
@@ -135,6 +186,230 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     quantity property mass [
         domain Component
         quantity isq:Mass
+        functional
+    ]
+
+    @dc:description "Lifecycle or model maturity status (for example, Conceptual, Preliminary, or Operational)."
+    scalar property maturityLevel [
+        domain base:Element
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Mass in kilograms for physical assets, or TBD/N/A when unknown or not applicable."
+    scalar property massKg [
+        domain base:Element
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Power consumption in watts for powered assets, or TBD/N/A when unknown or not applicable."
+    scalar property powerConsumptionW [
+        domain base:Element
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Autonomy level or TBD/N/A when not established or not applicable."
+    scalar property autonomyLevel [
+        domain base:Element
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Likelihood of a hazard occurring; use TBD until assessed."
+    scalar property occurrenceLikelihood [
+        domain Hazard
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Severity of a hazard's consequences; use TBD until assessed."
+    scalar property consequenceSeverity [
+        domain Hazard
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Status of planned or implemented responses to a hazard; use TBD until defined."
+    scalar property mitigationStatus [
+        domain Hazard
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Terrain slope classification relevant to rover traversability; use TBD until characterized."
+    scalar property terrainSlopeClass [
+        domain Terrain
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Terrain feature class relevant to rover route planning."
+    scalar property terrainClass [
+        domain Terrain
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Assessment of rover traversability; use TBD until evaluated."
+    scalar property traversability [
+        domain Terrain
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Power generated in watts by a physical system; use TBD until specified."
+    scalar property powerGenerationW [
+        domain base:Element
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Planned or measured mission duration in hours; use TBD when not established."
+    scalar property missionDurationHours [
+        domain Mission
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Primary objective of a mission."
+    scalar property missionObjective [
+        domain Mission
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Lifecycle status of a requirement, such as Draft, Proposed, or Approved."
+    scalar property requirementStatus [
+        domain Requirement
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Planned verification approach for a requirement."
+    scalar property verificationMethod [
+        domain Requirement
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Expected lunar-night hibernation duration in hours; use TBD when not established."
+    scalar property hibernationDurationHours [
+        domain Mission
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Planned traverse distance in kilometers; use TBD when not established."
+    scalar property traverseDistanceKm [
+        domain Mission
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Ground-station antenna diameter in meters."
+    scalar property antennaDiameterM [
+        domain GroundStation
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Number of people assigned to a stakeholder team; use TBD until staffing is defined."
+    scalar property teamSizePeople [
+        domain Stakeholder
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Primary operational responsibility of a stakeholder team."
+    scalar property teamResponsibility [
+        domain Stakeholder
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Maximum slope traversable by a mobility capability in degrees; use TBD until verified."
+    scalar property traversalSlopeLimitDeg [
+        domain MobilityCapability
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Maximum obstacle height a mobility capability can traverse in centimeters; use TBD until verified."
+    scalar property obstacleHeightLimitCm [
+        domain MobilityCapability
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Terrain types a mobility capability is designed to traverse."
+    scalar property supportedTerrain [
+        domain MobilityCapability
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Expected localization accuracy for a navigation capability; use TBD until specified."
+    scalar property localizationAccuracyM [
+        domain NavigationCapability
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Useful perception or hazard-detection range for a navigation capability; use TBD until specified."
+    scalar property perceptionRangeM [
+        domain NavigationCapability
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Path-planning behavior of a navigation capability."
+    scalar property pathPlanningMode [
+        domain NavigationCapability
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Variable monitored by a condition."
+    scalar property triggerVariable [
+        domain base:Condition
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Threshold that causes a condition to become true; use TBD until specified."
+    scalar property triggerThreshold [
+        domain base:Condition
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Primary activity performed in an operational state."
+    scalar property operatingActivity [
+        domain State
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Qualitative power profile for a state; include a quantified value only when established."
+    scalar property statePowerProfile [
+        domain State
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Control and autonomy behavior while the state is active."
+    scalar property stateControlMode [
+        domain State
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "Expected duration of an operational state; use TBD when not established."
+    scalar property stateDurationHours [
+        domain State
+        range xsd:string
         functional
     ]
  

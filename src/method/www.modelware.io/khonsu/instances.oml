@@ -10,33 +10,86 @@ description <https://www.modelware.io/khonsu/instances#> as instances {
 // ===== Rover and mission =====
 instance Mission1 : vocab:Mission [
         base:description "Lunar Rover Exploration Mission"
+        base:priority "High"
+        vocab:maturityLevel "Conceptual"
+        vocab:missionDurationHours "TBD"
+        vocab:traverseDistanceKm "TBD"
+        vocab:missionObjective "Explore lunar south-polar terrain and support surface science"
+        vocab:decomposes SouthPoleTraverse
     ]
 
 instance KhonsuRover : vocab:WheeledRover [
     base:description "Khonsu: the lunar rover under design (wheeled, autonomous)."
+    base:priority "High"
+    vocab:maturityLevel "Conceptual"
+    vocab:massKg "TBD"
+    vocab:powerConsumptionW "TBD"
+    vocab:autonomyLevel "Autonomous; level TBD"
     vocab:executes SouthPoleTraverse
     vocab:provides AutonomousNavigation
     vocab:provides RockerBogieLocomotion
     vocab:traverses ShackletonRim
     vocab:traverses ConnectingRidge
+    vocab:aggregates NavigationSubsystem
+    vocab:aggregates MobilitySubsystem
+    vocab:aggregates solarPanel
 ]
 
 instance SouthPoleTraverse : vocab:Mission [
     base:description "Notional south-polar traverse mission with 50-70 h night hibernation (durations TBD)."
+    base:priority "High"
+    vocab:maturityLevel "Conceptual"
+    vocab:missionDurationHours "TBD"
+    vocab:hibernationDurationHours "50-70 h (concept range; verify)"
+    vocab:traverseDistanceKm "TBD"
+    vocab:pursues AutonomousNavigationRequirement
+    vocab:pursues MobilityRequirement
+]
+
+// ===== Requirements and traceability =====
+instance AutonomousNavigationRequirement : vocab:Requirement [
+    base:description "The rover shall localize and plan a safe route across the traverse without continuous ground intervention."
+    base:priority "High"
+    vocab:maturityLevel "Draft"
+    vocab:requirementStatus "Proposed"
+    vocab:verificationMethod "Integrated navigation test and representative-terrain simulation; procedure TBD"
+]
+
+instance MobilityRequirement : vocab:Requirement [
+    base:description "The rover shall traverse the selected south-polar terrain within TBD slope and obstacle limits."
+    base:priority "High"
+    vocab:maturityLevel "Draft"
+    vocab:requirementStatus "Proposed"
+    vocab:verificationMethod "Mobility test on representative slope and regolith simulant; limits and procedure TBD"
 ]
 
 // ===== Terrain =====
 instance ShackletonRim : vocab:Terrain [
     base:description "Rim of Shackleton crater near the lunar south pole; candidate region of interest."
+    base:priority "Medium"
+    vocab:maturityLevel "Candidate"
+    vocab:terrainSlopeClass "TBD"
+    vocab:terrainClass "Crater rim"
+    vocab:traversability "TBD"
 ]
 
 instance ConnectingRidge : vocab:Terrain [
     base:description "A ridge connecting terrain features along the planned south-polar traverse."
+    base:priority "Medium"
+    vocab:maturityLevel "Candidate"
+    vocab:terrainSlopeClass "TBD"
+    vocab:terrainClass "Connecting ridge"
+    vocab:traversability "TBD"
 ]
 
 // ===== Hazards =====
 instance ColdSoak : vocab:Hazard [
     base:description "Extreme cold soak during lunar night and in permanently shadowed regions."
+    base:priority "High"
+    vocab:maturityLevel "Identified"
+    vocab:occurrenceLikelihood "TBD"
+    vocab:consequenceSeverity "TBD"
+    vocab:mitigationStatus "TBD"
     vocab:threatens SouthPoleTraverse
     vocab:degrades RockerBogieLocomotion
     vocab:riskLevel "High"
@@ -44,6 +97,11 @@ instance ColdSoak : vocab:Hazard [
 
 instance LunarDustContamination : vocab:Hazard [
     base:description "Electrostatically charged, abrasive regolith dust that fouls seals, wheels, and radiators."
+    base:priority "High"
+    vocab:maturityLevel "Identified"
+    vocab:occurrenceLikelihood "TBD"
+    vocab:consequenceSeverity "TBD"
+    vocab:mitigationStatus "TBD"
     vocab:threatens SouthPoleTraverse
     vocab:degrades RockerBogieLocomotion
     vocab:riskLevel "Medium"
@@ -51,6 +109,11 @@ instance LunarDustContamination : vocab:Hazard [
 
 instance RegolithSlipEntrapment : vocab:Hazard [
     base:description "Loose regolith on steep slopes causing excessive wheel slip or entrapment."
+    base:priority "High"
+    vocab:maturityLevel "Identified"
+    vocab:occurrenceLikelihood "TBD"
+    vocab:consequenceSeverity "TBD"
+    vocab:mitigationStatus "TBD"
     vocab:threatens SouthPoleTraverse
     vocab:degrades RockerBogieLocomotion
     vocab:riskLevel "High"
@@ -58,6 +121,11 @@ instance RegolithSlipEntrapment : vocab:Hazard [
 
 instance DTELineOfSightLoss : vocab:Hazard [
     base:description "Loss of direct-to-Earth line of sight on polar terrain; drives competency question Q5."
+    base:priority "High"
+    vocab:maturityLevel "Identified"
+    vocab:occurrenceLikelihood "TBD"
+    vocab:consequenceSeverity "TBD"
+    vocab:mitigationStatus "TBD"
     vocab:threatens SouthPoleTraverse
     vocab:degrades AutonomousNavigation
     vocab:riskLevel "Medium"
@@ -66,86 +134,173 @@ instance DTELineOfSightLoss : vocab:Hazard [
 // ===== Capabilities =====
 instance AutonomousNavigation : vocab:NavigationCapability [
     base:description "Ability to localize and plan a path without ground contact."
+    base:priority "High"
+    vocab:maturityLevel "Conceptual"
+    vocab:localizationAccuracyM "TBD"
+    vocab:perceptionRangeM "TBD"
+    vocab:pathPlanningMode "Onboard autonomous planning; behavior TBD"
+    vocab:satisfies AutonomousNavigationRequirement
+    vocab:implementedBy NavigationSubsystem
 ]
 
 instance RockerBogieLocomotion : vocab:MobilityCapability [
     base:description "Ability to drive over slopes and loose regolith using a rocker-bogie suspension."
+    base:priority "High"
+    vocab:maturityLevel "Conceptual"
+    vocab:traversalSlopeLimitDeg "TBD"
+    vocab:obstacleHeightLimitCm "TBD"
+    vocab:supportedTerrain "Slopes and loose regolith; qualification TBD"
+    vocab:satisfies MobilityRequirement
+    vocab:implementedBy MobilitySubsystem
 ]
 
 // ===== Subsystems =====
 instance NavigationSubsystem : vocab:SubSystem [
     base:description "Perception and localization subsystem."
-    base:contains NavCam
-    base:contains OusterLiDAR
-    base:contains HoneywellIMU
-    base:contains KintexFPGA
+    base:priority "High"
+    vocab:maturityLevel "Conceptual"
+    vocab:massKg "6.0 kg (illustrative sum of listed component estimates)"
+    vocab:powerConsumptionW "65 W (illustrative sum of listed component estimates)"
+    vocab:autonomyLevel "N/A"
+    vocab:composes NavCam
+    vocab:composes OusterLiDAR
+    vocab:composes HoneywellIMU
+    vocab:composes KintexFPGA
 ]
 
 instance MobilitySubsystem : vocab:SubSystem [
     base:description "Drive and steering subsystem."
-    base:contains WheelDriveMotor
+    base:priority "High"
+    vocab:maturityLevel "Conceptual"
+    vocab:massKg "TBD"
+    vocab:powerConsumptionW "TBD"
+    vocab:autonomyLevel "N/A"
+    vocab:composes WheelDriveMotor
 ]
 
 // ===== Components =====
 instance NavCam : vocab:CameraSensor [
     base:description "Stereo navigation camera pair; candidate, Mars 2020 Navcam-class heritage."
+    base:priority "Medium"
+    vocab:maturityLevel "Candidate"
+    vocab:massKg "1.5 kg (estimate; stereo pair)"
+    vocab:powerConsumptionW "10 W (estimate)"
+    vocab:autonomyLevel "N/A"
     vocab:enables AutonomousNavigation
 ]
 
 instance OusterLiDAR : vocab:LiDARSensor [
     base:description "3D LiDAR for hazard detection; candidate, Ouster OS-series (a space-qualified unit is required)."
+    base:priority "Medium"
+    vocab:maturityLevel "Candidate"
+    vocab:massKg "1.5 kg (estimate)"
+    vocab:powerConsumptionW "20 W (estimate)"
+    vocab:autonomyLevel "N/A"
     vocab:enables AutonomousNavigation
 ]
 
 instance HoneywellIMU : vocab:Sensor [
     base:description "Inertial measurement unit for dead reckoning; candidate, Honeywell HG4930."
+    base:priority "High"
+    vocab:maturityLevel "Candidate"
+    vocab:massKg "0.5 kg (estimate)"
+    vocab:powerConsumptionW "5 W (estimate)"
+    vocab:autonomyLevel "N/A"
     vocab:enables AutonomousNavigation
 ]
 
 instance KintexFPGA : vocab:FPGA [
     base:description "Radiation-tolerant FPGA for vision processing; candidate, AMD Xilinx XQRKU060 Kintex UltraScale."
+    base:priority "High"
+    vocab:maturityLevel "Candidate"
+    vocab:massKg "2.5 kg (estimate; processing board)"
+    vocab:powerConsumptionW "30 W (estimate)"
+    vocab:autonomyLevel "N/A"
 ]
 
 instance WheelDriveMotor : vocab:Actuator [
     base:description "Brushless wheel drive motor; candidate, Maxon EC-i series."
+    base:priority "High"
+    vocab:maturityLevel "Candidate"
+    vocab:massKg "0.4 kg (estimate per motor; exact variant TBD)"
+    vocab:powerConsumptionW "100 W (estimated input per motor; rating TBD)"
+    vocab:autonomyLevel "N/A"
     vocab:drives RockerBogieLocomotion
 ]
 
 instance solarPanel : vocab:Component [
     base:description "Triple-junction solar panel (typically GaAs-based cells); sizing and area TBD."
+    base:priority "High"
+    vocab:maturityLevel "Conceptual"
+    vocab:massKg "20 kg (preliminary array estimate; sizing TBD)"
+    vocab:powerGenerationW "500 W peak (preliminary estimate; illumination and sizing dependent)"
+    vocab:autonomyLevel "N/A"
 ]
 
 // ===== Satellites =====
 instance LunarReconnaissanceOrbiter : vocab:Satellite [
     base:description "NASA Lunar Reconnaissance Orbiter: source of south-polar imagery and terrain data (LOLA, LROC)."
+    base:priority "Medium"
+    vocab:maturityLevel "Operational"
+    vocab:massKg "1916 kg (approximate spacecraft launch mass)"
+    vocab:powerGenerationW "Up to 1850 W peak (approximate array capacity)"
+    vocab:autonomyLevel "TBD"
 ]
 
 instance LunarGateway : vocab:Satellite [
     base:description "Planned NASA-led lunar-orbit station; candidate communications relay."
+    base:priority "Medium"
+    vocab:maturityLevel "Planned"
+    vocab:massKg "TBD (configuration dependent)"
+    vocab:powerGenerationW "TBD (configuration dependent)"
+    vocab:autonomyLevel "TBD"
 ]
 
 // ===== Ground stations =====
 instance DSNGoldstone : vocab:GroundStation [
     base:description "NASA Deep Space Network, Goldstone, California (70 m antenna DSS-14)."
+    base:priority "Medium"
+    vocab:maturityLevel "Operational"
+    vocab:massKg "TBD"
+    vocab:powerConsumptionW "TBD"
+    vocab:antennaDiameterM "70 m"
 ]
 
 instance DSNCanberra : vocab:GroundStation [
     base:description "NASA Deep Space Network, Canberra, Australia (70 m antenna DSS-43)."
+    base:priority "Medium"
+    vocab:maturityLevel "Operational"
+    vocab:massKg "TBD"
+    vocab:powerConsumptionW "TBD"
+    vocab:antennaDiameterM "70 m"
 ]
 
 instance ESTRACKMalargue : vocab:GroundStation [
     base:description "ESA ESTRACK deep-space station at Malargue, Argentina (35 m antenna)."
+    base:priority "Medium"
+    vocab:maturityLevel "Operational"
+    vocab:massKg "TBD"
+    vocab:powerConsumptionW "TBD"
+    vocab:antennaDiameterM "35 m"
 ]
 
 // ===== Stakeholders =====
 instance MissionOperationsTeam : vocab:Stakeholder [
     base:description "Team that plans traverses and commands the rover."
+    base:priority "High"
+    vocab:maturityLevel "Identified"
+    vocab:teamSizePeople "6-10 people per shift (illustrative; shift coverage TBD)"
+    vocab:teamResponsibility "Plan traverses and command the rover"
     vocab:hasInterestIn SouthPoleTraverse
     base:category "Operations"
 ]
 
 instance ScienceTeam : vocab:Stakeholder [
     base:description "Team that defines payload and science objectives."
+    base:priority "High"
+    vocab:maturityLevel "Identified"
+    vocab:teamSizePeople "5-8 people (illustrative; payload scope TBD)"
+    vocab:teamResponsibility "Define payload and science objectives"
     vocab:hasInterestIn SouthPoleTraverse
     base:category "Science"
 ]
@@ -153,24 +308,50 @@ instance ScienceTeam : vocab:Stakeholder [
 // ===== Conditions and states =====
 instance LinkLossCondition : base:Condition [
     base:description "Direct-to-Earth line of sight lost for longer than a threshold (threshold TBD)."
+    base:priority "High"
+    vocab:maturityLevel "Draft"
+    vocab:triggerVariable "DTE_link_state"
+    vocab:triggerThreshold "LOS duration > TBD s"
     base:expression "DTE_link_state == LOS for t > t_loss_TBD"
 ]
 
 instance LowBatteryCondition : base:Condition [
     base:description "Battery state of charge below the safe-mode threshold (value TBD)."
+    base:priority "High"
+    vocab:maturityLevel "Draft"
+    vocab:triggerVariable "battery_SoC"
+    vocab:triggerThreshold "SoC < TBD %"
     base:expression "battery_SoC < SoC_safe_TBD"
 ]
 
 instance NominalTraverse : vocab:State [
     base:description "Normal driving and science operation."
+    base:priority "Medium"
+    vocab:maturityLevel "Conceptual"
+    vocab:operatingActivity "Drive and conduct science operations"
+    vocab:statePowerProfile "Active; power demand TBD"
+    vocab:stateControlMode "Autonomous navigation with ground supervision; details TBD"
+    vocab:stateDurationHours "TBD"
 ]
 
 instance LunarNightHibernation : vocab:State [
     base:description "Reduced-power hold through the lunar night (50-70 h window)."
+    base:priority "High"
+    vocab:maturityLevel "Conceptual"
+    vocab:operatingActivity "Maintain thermal survival during lunar night"
+    vocab:statePowerProfile "Reduced-power survival mode; power demand TBD"
+    vocab:stateControlMode "Autonomous thermal and power management; details TBD"
+    vocab:stateDurationHours "50-70 h (concept range; verify)"
 ]
 
 instance SafeMode : vocab:State [
     base:description "Rover halts and waits for ground commands; entered on link loss without autonomy permission or low battery."
+    base:priority "High"
+    vocab:maturityLevel "Conceptual"
+    vocab:operatingActivity "Halt mobility and maintain safe condition pending recovery"
+    vocab:statePowerProfile "Survival and essential housekeeping only; power demand TBD"
+    vocab:stateControlMode "Await ground commands; onboard safety behavior TBD"
+    vocab:stateDurationHours "TBD"
     vocab:isEnteredWhen LinkLossCondition
     vocab:isEnteredWhen LowBatteryCondition
 ]
