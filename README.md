@@ -68,6 +68,8 @@ The model is intended to help answer questions such as:
 
 The current OML starter vocabulary includes initial domain concepts such as `Rover`, `Component`, `SubSystem`, `Sensor`, `Actuator`, `Mission`, `Capability`, `Terrain`, `Hazard`, `Resource`, and `State`. It also contains early specializations and scalar properties.
 
+The instance model demonstrates an initial traceability chain from the top-level mission through the traverse, draft requirements, satisfying capabilities, implementing subsystems, and contained components. Requirement thresholds and verification procedures remain preliminary or TBD pending engineering definition.
+
 > 🔍 This vocabulary is a starting point for refinement. Definitions, specializations, units, and property domains should be reviewed as the model evolves. In particular, keep physical components distinct from software functions where that distinction matters to architecture or resource accounting.
 
 
