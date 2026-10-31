@@ -22,8 +22,8 @@ sources:
 #   - include: [src/method]
 
 # oml-cli parameter defaults
-defaults:
-  export: -o build/owl
-  reason: -o build/owl -t
+#defaults:
+ # export: -o build/owl
+  #reason: -o build/owl -t
   # render: -m src/model/md -b build/web -c src/model/oml/khonsu/bundle.oml
-  pack: -o build/dist
+  #pack: -o build/dist

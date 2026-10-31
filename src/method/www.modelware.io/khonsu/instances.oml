@@ -2,120 +2,78 @@
 description <https://www.modelware.io/khonsu/instances#> as instances {
     uses <http://purl.org/dc/elements/1.1/> as dc
     uses <https://www.modelware.io/khonsu/base#> as base
-    uses <https://www.modelware.io/khonsu/vocabulary#> as khonsu
+    uses <https://www.modelware.io/khonsu/vocabulary#> as vocab 
 
-    // Task 4: relations from/to/reverse
-@dc:description "A rover executes a mission."
-relation entity Executes [
-    from Rover
-    to Mission
-    forward executes
-    reverse isExecutedBy
-] < base:Element
-
-@dc:description "A sensor enables a navigation capability."
-relation entity Enables [
-    from Sensor
-    to NavigationCapability
-    forward enables
-    reverse isEnabledBy
-] < base:Element
-
-@dc:description "An actuator drives a mobility capability."
-relation entity Drives [
-    from Actuator
-    to MobilityCapability
-    forward drives
-    reverse isDrivenBy
-] < base:Element
-
-@dc:description "A hazard threatens a mission."
-relation entity Threatens [
-    from Hazard
-    to Mission
-    forward threatens
-    reverse isThreatenedBy
-] < base:Element
-
-@dc:description "A hazard degrades a capability."
-relation entity Degrades [
-    from Hazard
-    to Capability
-    forward degrades
-    reverse isDegradedBy
-] < base:Element
-
-@dc:description "A state is entered when a condition holds."
-relation entity IsEnteredWhen [
-    from State
-    to base:Condition
-    forward isEnteredWhen
-    reverse triggersEntryTo
-] < base:Element
+// Part B - Basic system model
 
 // Task 6
 // ===== Rover and mission =====
-instance Mission1 : khonsu:Mission [
+instance Mission1 : vocab:Mission [
         base:description "Lunar Rover Exploration Mission"
     ]
-instance Khonsu : component:WheeledRover [
+
+instance KhonsuRover : vocab:WheeledRover [
     base:description "Khonsu: the lunar rover under design (wheeled, autonomous)."
-    component:executes SouthPoleTraverse
-    component:provides AutonomousNavigation
-    component:provides RockerBogieLocomotion
-    component:traverses ShackletonRim
-    component:traverses ConnectingRidge
+    vocab:executes SouthPoleTraverse
+    vocab:provides AutonomousNavigation
+    vocab:provides RockerBogieLocomotion
+    vocab:traverses ShackletonRim
+    vocab:traverses ConnectingRidge
 ]
 
-instance SouthPoleTraverse : component:Mission [
+instance SouthPoleTraverse : vocab:Mission [
     base:description "Notional south-polar traverse mission with 50-70 h night hibernation (durations TBD)."
 ]
 
 // ===== Terrain =====
-instance ShackletonRim : component:Terrain [
+instance ShackletonRim : vocab:Terrain [
     base:description "Rim of Shackleton crater near the lunar south pole; candidate region of interest."
 ]
 
+instance ConnectingRidge : vocab:Terrain [
+    base:description "A ridge connecting terrain features along the planned south-polar traverse."
+]
+
 // ===== Hazards =====
-instance ColdSoak : component:Hazard [
+instance ColdSoak : vocab:Hazard [
     base:description "Extreme cold soak during lunar night and in permanently shadowed regions."
-    component:threatens SouthPoleTraverse
-    component:degrades RockerBogieLocomotion
-    component:riskLevel "High"
+    vocab:threatens SouthPoleTraverse
+    vocab:degrades RockerBogieLocomotion
+    vocab:riskLevel "High"
 ]
 
-instance LunarDustContamination : component:Hazard [
+instance LunarDustContamination : vocab:Hazard [
     base:description "Electrostatically charged, abrasive regolith dust that fouls seals, wheels, and radiators."
-    component:threatens SouthPoleTraverse
-    component:degrades RockerBogieLocomotion
-    component:riskLevel "Medium"
+    vocab:threatens SouthPoleTraverse
+    vocab:degrades RockerBogieLocomotion
+    vocab:riskLevel "Medium"
 ]
 
-instance RegolithSlipEntrapment : component:Hazard [
+instance RegolithSlipEntrapment : vocab:Hazard [
     base:description "Loose regolith on steep slopes causing excessive wheel slip or entrapment."
-    component:threatens SouthPoleTraverse
-    component:degrades RockerBogieLocomotion
-    component:riskLevel "High"
+    vocab:threatens SouthPoleTraverse
+    vocab:degrades RockerBogieLocomotion
+    vocab:riskLevel "High"
 ]
 
-instance DTELineOfSightLoss : component:Hazard [
+instance DTELineOfSightLoss : vocab:Hazard [
     base:description "Loss of direct-to-Earth line of sight on polar terrain; drives competency question Q5."
-    component:threatens SouthPoleTraverse
-    component:degrades AutonomousNavigation
-    component:riskLevel "Medium"
+    vocab:threatens SouthPoleTraverse
+    vocab:degrades AutonomousNavigation
+    vocab:riskLevel "Medium"
 ]
 
 // ===== Capabilities =====
-instance AutonomousNavigation : component:NavigationCapability [
+instance AutonomousNavigation : vocab:NavigationCapability [
     base:description "Ability to localize and plan a path without ground contact."
 ]
 
-instance RockerBogieLocomotion : component:MobilityCapability [
+instance RockerBogieLocomotion : vocab:MobilityCapability [
     base:description "Ability to drive over slopes and loose regolith using a rocker-bogie suspension."
 ]
 
 // ===== Subsystems =====
-instance NavigationSubsystem : component:SubSystem [
+instance NavigationSubsystem : vocab:SubSystem [
     base:description "Perception and localization subsystem."
     base:contains NavCam
     base:contains OusterLiDAR
@@ -123,72 +81,72 @@ instance NavigationSubsystem : component:SubSystem [
     base:contains KintexFPGA
 ]
 
-instance MobilitySubsystem : component:SubSystem [
+instance MobilitySubsystem : vocab:SubSystem [
     base:description "Drive and steering subsystem."
     base:contains WheelDriveMotor
 ]
 
 // ===== Components =====
-instance NavCam : component:CameraSensor [
+instance NavCam : vocab:CameraSensor [
     base:description "Stereo navigation camera pair; candidate, Mars 2020 Navcam-class heritage."
-    component:enables AutonomousNavigation
+    vocab:enables AutonomousNavigation
 ]
 
-instance OusterLiDAR : component:LiDARSensor [
+instance OusterLiDAR : vocab:LiDARSensor [
     base:description "3D LiDAR for hazard detection; candidate, Ouster OS-series (a space-qualified unit is required)."
-    component:enables AutonomousNavigation
+    vocab:enables AutonomousNavigation
 ]
 
-instance HoneywellIMU : component:Sensor [
+instance HoneywellIMU : vocab:Sensor [
     base:description "Inertial measurement unit for dead reckoning; candidate, Honeywell HG4930."
-    component:enables AutonomousNavigation
+    vocab:enables AutonomousNavigation
 ]
 
-instance KintexFPGA : component:FPGA [
+instance KintexFPGA : vocab:FPGA [
     base:description "Radiation-tolerant FPGA for vision processing; candidate, AMD Xilinx XQRKU060 Kintex UltraScale."
 ]
 
-instance WheelDriveMotor : component:Actuator [
+instance WheelDriveMotor : vocab:Actuator [
     base:description "Brushless wheel drive motor; candidate, Maxon EC-i series."
-    component:drives RockerBogieLocomotion
+    vocab:drives RockerBogieLocomotion
 ]
 
-instance solarPanel : component:Component [
+instance solarPanel : vocab:Component [
     base:description "Triple-junction solar panel (typically GaAs-based cells); sizing and area TBD."
 ]
 
 // ===== Satellites =====
-instance LunarReconnaissanceOrbiter : component:Satellite [
+instance LunarReconnaissanceOrbiter : vocab:Satellite [
     base:description "NASA Lunar Reconnaissance Orbiter: source of south-polar imagery and terrain data (LOLA, LROC)."
 ]
 
-instance LunarGateway : component:Satellite [
+instance LunarGateway : vocab:Satellite [
     base:description "Planned NASA-led lunar-orbit station; candidate communications relay."
 ]
 
 // ===== Ground stations =====
-instance DSNGoldstone : component:GroundStation [
+instance DSNGoldstone : vocab:GroundStation [
     base:description "NASA Deep Space Network, Goldstone, California (70 m antenna DSS-14)."
 ]
 
-instance DSNCanberra : component:GroundStation [
+instance DSNCanberra : vocab:GroundStation [
     base:description "NASA Deep Space Network, Canberra, Australia (70 m antenna DSS-43)."
 ]
 
-instance ESTRACKMalargue : component:GroundStation [
+instance ESTRACKMalargue : vocab:GroundStation [
     base:description "ESA ESTRACK deep-space station at Malargue, Argentina (35 m antenna)."
 ]
 
 // ===== Stakeholders =====
-instance MissionOperationsTeam : component:Stakeholder [
+instance MissionOperationsTeam : vocab:Stakeholder [
     base:description "Team that plans traverses and commands the rover."
-    component:hasInterestIn SouthPoleTraverse
+    vocab:hasInterestIn SouthPoleTraverse
     base:category "Operations"
 ]
 
-instance ScienceTeam : component:Stakeholder [
+instance ScienceTeam : vocab:Stakeholder [
     base:description "Team that defines payload and science objectives."
-    component:hasInterestIn SouthPoleTraverse
+    vocab:hasInterestIn SouthPoleTraverse
     base:category "Science"
 ]
 
@@ -203,18 +161,18 @@ instance LowBatteryCondition : base:Condition [
     base:expression "battery_SoC < SoC_safe_TBD"
 ]
 
-instance NominalTraverse : component:State [
+instance NominalTraverse : vocab:State [
     base:description "Normal driving and science operation."
 ]
 
-instance LunarNightHibernation : component:State [
+instance LunarNightHibernation : vocab:State [
     base:description "Reduced-power hold through the lunar night (50-70 h window)."
 ]
 
-instance SafeMode : component:State [
+instance SafeMode : vocab:State [
     base:description "Rover halts and waits for ground commands; entered on link loss without autonomy permission or low battery."
-    component:isEnteredWhen LinkLossCondition
-    component:isEnteredWhen LowBatteryCondition
+    vocab:isEnteredWhen LinkLossCondition
+    vocab:isEnteredWhen LowBatteryCondition
 ]
     
 

@@ -7,11 +7,13 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
 
     // Part A - Initial vocabulary  
     
+
+    // Task 1: concepts
     @dc:description "A Mission is a high-level objective."
     concept Mission < base:Element
 [
-    restricts relation isExecutedBy to min 1 Rover
-    restricts relation isOfInterestTo to min 1 Stakeholder
+    restricts   isExecutedBy to min 1 Rover
+    //restricts   isOfInterestTo to min 1 Stakeholder
 ]
     
     @dc:description "A Hazard is a threat to the mission."
@@ -23,9 +25,9 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     @dc:description "A Rover is an autonomous system to explore the lunar surface."
     concept Rover < base:Element
 [
-    restricts relation executes to min 1 Mission
-    restricts relation provides to min 1 MobilityCapability
-    restricts relation provides to min 1 NavigationCapability
+    restricts   executes to min 1 Mission
+    //restricts   provides to min 1 MobilityCapability
+    //restricts   provides to min 1 NavigationCapability
 ]
 
     @dc:description "A State is a description of the rover's condition."
@@ -49,7 +51,7 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     
 
 
-    // Taxonomy / specialization
+    // Task 2: Taxonomy / specialization
 
     @dc:description "A SubSystem is a component of a larger system."
     concept SubSystem < Component  
@@ -81,11 +83,12 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     @dc:description "A Mobility capability is a feature that enables a system to move from one location to another."
     concept MobilityCapability < Capability
 [
-    restricts relation isDrivenBy to min 1 Actuator
-    restricts relation isProvidedBy to min 1 Rover
+    restricts   isDrivenBy to min 1 Actuator
+    //restricts   isProvidedBy to min 1 Rover
 ]
 
-    // Scalar properties
+    // Task 3: Scalar properties
+
 
     @dc:description "A LinkBudget is a constraint on the communication link between a rover and a ground station."
     scalar property LinkBudget [
@@ -134,5 +137,81 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
         quantity isq:Mass
         functional
     ]
+ 
+
+  // Task 4: relations from/to/reverse
+  @dc:description "A rover executes a mission."
+  relation entity Executes [
+      from Rover
+      to Mission
+      forward executes
+      reverse isExecutedBy
+  ] < base:Element
+  
+  @dc:description "A sensor enables a navigation capability."
+  relation entity Enables [
+      from Sensor
+      to NavigationCapability
+      forward enables
+      reverse isEnabledBy
+  ] < base:Element
+  
+  @dc:description "An actuator drives a mobility capability."
+  relation entity Drives [
+      from Actuator
+      to MobilityCapability
+      forward drives
+      reverse isDrivenBy
+  ] < base:Element
+  
+  @dc:description "A hazard threatens a mission."
+  relation entity Threatens [
+      from Hazard
+      to Mission
+      forward threatens
+      reverse isThreatenedBy
+  ] < base:Element
+  
+  @dc:description "A hazard degrades a capability."
+  relation entity Degrades [
+      from Hazard
+      to Capability
+      forward degrades
+      reverse isDegradedBy
+  ] < base:Element
+
+  @dc:description "A rover provides a capability."
+  relation entity Provides [
+      from Rover
+      to Capability
+      forward provides
+      reverse isProvidedBy
+  ] < base:Element
+
+  @dc:description "A rover traverses terrain."
+  relation entity Traverses [
+      from Rover
+      to Terrain
+      forward traverses
+      reverse isTraversedBy
+  ] < base:Element
+
+  @dc:description "A stakeholder has an interest in a mission."
+  relation entity HasInterestIn [
+      from Stakeholder
+      to Mission
+      forward hasInterestIn
+      reverse isOfInterestTo
+  ] < base:Element
+  
+  @dc:description "A state is entered when a condition holds."
+  relation entity IsEnteredWhen [
+      from State
+      to base:Condition
+      forward isEnteredWhen
+      reverse triggersEntryTo
+  ] < base:Element
+  
+
 
 }
