@@ -3,6 +3,7 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     extends <http://purl.org/dc/elements/1.1/> as dc
     extends <http://www.w3.org/2001/XMLSchema#> as xsd
     extends <https://www.modelware.io/khonsu/base#> as base
+    extends <http://opencaesar.io/isq/> as isq
 
     // Part A - Initial vocabulary  
     
@@ -124,6 +125,13 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     scalar property riskLevel [
         domain Hazard
         range RiskLevel
+        functional
+    ]
+
+    @dc:description "The mass of the physical part."
+    quantity property mass [
+        domain Component
+        quantity isq:Mass
         functional
     ]
 

@@ -3,6 +3,7 @@
 vocabulary <https://www.modelware.io/khonsu/base#> as base {
     extends <http://purl.org/dc/elements/1.1/> as dc
     extends <http://www.w3.org/2001/XMLSchema#> as xsd
+    extends <http://opencaesar.io/isq/> as isq
 
     @dc:description "A general model element; the root of the Khonsu type hierarchy."
     aspect Element
@@ -65,4 +66,5 @@ vocabulary <https://www.modelware.io/khonsu/base#> as base {
         domain Categorized
         range xsd:string
     ]
+
 }

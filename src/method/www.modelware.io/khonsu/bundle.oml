@@ -4,4 +4,5 @@ vocabulary bundle <https://www.modelware.io/khonsu/bundle#> as v-bundle {
     includes <http://purl.org/dc/elements/1.1/> as dc
     includes <https://www.modelware.io/khonsu/base#>
     includes <https://www.modelware.io/khonsu/vocabulary#>
+    //includes <https://www.modelware.io/khonsu/instances#>  
 }
