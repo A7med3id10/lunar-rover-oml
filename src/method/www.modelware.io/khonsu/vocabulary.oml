@@ -128,7 +128,7 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
         functional
     ]
 
-    @dc:description "The mass of the physical part."
+    @dc:description "The mass of the Component."
     quantity property mass [
         domain Component
         quantity isq:Mass
