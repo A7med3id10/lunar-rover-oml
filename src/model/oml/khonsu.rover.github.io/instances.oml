@@ -16,6 +16,8 @@ instance Mission1 : vocab:Mission [
         vocab:traverseDistanceKm "TBD"
         vocab:missionObjective "Explore lunar south-polar terrain and support surface science"
         vocab:decomposes SouthPoleTraverse
+        vocab:isExecutedBy KhonsuRover
+        vocab:isOfInterestTo MissionOperationsTeam
     ]
 
 instance KhonsuRover : vocab:WheeledRover [
@@ -172,7 +174,7 @@ instance MobilitySubsystem : vocab:SubSystem [
     base:description "Drive and steering subsystem."
     base:priority "High"
     vocab:maturityLevel "Conceptual"
-    vocab:massKg "TBD"
+    vocab:massKg "TBD" //TBD 
     vocab:powerConsumptionW "TBD"
     vocab:autonomyLevel "N/A"
     vocab:composes WheelDriveMotor

@@ -12,8 +12,8 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     @dc:description "A Mission is a high-level objective."
     concept Mission < base:Element
 [
-    //restricts   isExecutedBy to min 1 Rover
-    //restricts   isOfInterestTo to min 1 Stakeholder
+    restricts   isExecutedBy to min 1 Rover
+    restricts   isOfInterestTo to min 1 Stakeholder
 ]
 
     @dc:description "A verifiable statement of a mission or system need."
@@ -29,8 +29,8 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     concept Rover < base:Container, base:Element
 [
     restricts   executes to min 1 Mission
-    //restricts   provides to min 1 MobilityCapability
-    //restricts   provides to min 1 NavigationCapability
+    restricts   provides to min 1 MobilityCapability
+    restricts   provides to min 1 NavigationCapability
 ]
 
     @dc:description "A State is a description of the rover's condition."
