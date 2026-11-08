@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="img/Khonsu1.jfif" alt="Khonsu Lunar Rover" width="800">
+  <img src="img/lunar-rover-khonsu.webp" alt="Khonsu Lunar Rover" width="800">
   <br>
   <sub><i>Khonsu — An autonomous lunar rover, modeled with OML.</i></sub>
 </div>
