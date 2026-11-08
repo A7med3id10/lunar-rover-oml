@@ -82,6 +82,46 @@ The instance model demonstrates an initial traceability chain from the top-level
 
 > 🔍 This vocabulary is a starting point for refinement. Definitions, specializations, units, and property domains should be reviewed as the model evolves. In particular, keep physical components distinct from software functions where that distinction matters to architecture or resource accounting.
 
+## 🗂️ Model navigation and verification
+
+| Model layer | File |
+|---|---|
+| Base vocabulary | [`src/method/www.modelware.io/khonsu/base.oml`](src/method/www.modelware.io/khonsu/base.oml) |
+| Rover vocabulary | [`src/method/www.modelware.io/khonsu/vocabulary.oml`](src/method/www.modelware.io/khonsu/vocabulary.oml) |
+| Vocabulary bundle | [`src/method/www.modelware.io/khonsu/bundle.oml`](src/method/www.modelware.io/khonsu/bundle.oml) |
+| Rover instance description | [`src/model/oml/khonsu.rover.github.io/instances.oml`](src/model/oml/khonsu.rover.github.io/instances.oml) |
+| Description bundle | [`src/model/oml/khonsu.rover.github.io/bundle.oml`](src/model/oml/khonsu.rover.github.io/bundle.oml) |
+
+The description keeps its original namespace and imports; the description bundle includes it and uses the vocabulary bundle.
+
+| Acceptance question | Supporting model elements | Current gap |
+|---|---|---|
+| Q1 — Lunar-night hibernation budgets | `LunarNightHibernation`, `NavigationSubsystem`, `MobilitySubsystem`, and component mass/power properties | Battery and heater allocations and numeric energy budgets are not modeled; several component values are estimates or TBD. |
+| Q2 — Requirement allocation and verification | `Mission1`, `SouthPoleTraverse`, `AutonomousNavigationRequirement`, `MobilityRequirement`, and their satisfaction/implementation relations | Requirement thresholds and verification procedures are preliminary or TBD; evidence is not yet captured. |
+| Q3 — Lunar environment | `ShackletonRim`, `ConnectingRidge`, and the terrain and hazard properties | Environmental assumptions and quantified terrain conditions are incomplete or TBD. |
+| Q4 — Uncertainty, hazards, mitigations, and risk | `ColdSoak`, `LunarDustContamination`, `RegolithSlipEntrapment`, and `DTELineOfSightLoss` | Likelihood, consequence, mitigation, and uncertainty details are mostly TBD; verification evidence is absent. |
+| Q5 — Behavior after DTE link loss | `DTELineOfSightLoss`, `LinkLossCondition`, `LowBatteryCondition`, and `SafeMode` | Conditions link to Safe Mode, but permission for continued autonomous operation after link loss is not yet modeled explicitly. |
+
+The current acceptance questions do not yet require a project-specific inference rule: the modeled traceability and containment links are asserted, while the quantitative assumptions needed for derived budget results are still TBD. Add a domain rule when a defined question needs a derived relationship and its inputs and semantics are specified.
+
+Containment is inverse-functional: each contained element can have at most one container. This matches the current single-owner decomposition; revisit it if shared containment is intended.
+
+From the repository root, use the OML CLI to start the workspace server, lint the source, and check logical consistency:
+
+```powershell
+oml.cmd start
+oml.cmd lint
+oml.cmd reason
+```
+
+To persist reasoning output as OWL/Turtle artifacts under `build\owl`, run:
+
+```powershell
+oml.cmd reason --owl build/owl
+```
+
+`oml.cmd reason` checks consistency; it does not write output files unless `--owl` is supplied.
+
 
 
 ## 📚 Data sources to incorporate
