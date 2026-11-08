@@ -12,7 +12,7 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     @dc:description "A Mission is a high-level objective."
     concept Mission < base:Element
 [
-    restricts   isExecutedBy to min 1 Rover
+    //restricts   isExecutedBy to min 1 Rover
     //restricts   isOfInterestTo to min 1 Stakeholder
 ]
 

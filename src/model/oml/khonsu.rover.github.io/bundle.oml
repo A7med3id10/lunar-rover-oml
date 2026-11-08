@@ -1,0 +1,7 @@
+@dc:title "Khonsu Rover Bundle"
+@dc:description "A bundle that includes all descriptions in the Khonsu Rover project."
+description bundle <https://khonsu.rover.github.io/bundle#> as d-bundle {
+    uses <http://purl.org/dc/elements/1.1/> as dc
+    uses <https://www.modelware.io/khonsu/bundle#>
+    includes <https://khonsu.rover.github.io/instances#>
+}

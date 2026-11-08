@@ -1,12 +1,7 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"workbench.editorAssociations": {
-			"*.md": "oml.markdown.preview.editor"
-		}
-	}
+    "folders": [
+        {
+            "path": "."
+        }
+    ]
 }
