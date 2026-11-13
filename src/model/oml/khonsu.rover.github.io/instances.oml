@@ -3,6 +3,7 @@ description <https://khonsu.rover.github.io/instances#> as instances {
     uses <http://purl.org/dc/elements/1.1/> as dc
     uses <https://www.modelware.io/khonsu/base#> as base
     uses <https://www.modelware.io/khonsu/vocabulary#> as vocab 
+    uses <http://opencaesar.io/si/> as si
 
 // Part B - Basic system model
 
@@ -24,8 +25,8 @@ instance KhonsuRover : vocab:WheeledRover [
     base:description "Khonsu: the lunar rover under design (wheeled, autonomous)."
     base:priority "High"
     vocab:maturityLevel "Conceptual"
-    vocab:massKg "TBD"
-    vocab:powerConsumptionW "TBD"
+    //vocab:massKg "TBD"
+    //vocab:powerConsumption "TBD"
     vocab:autonomyLevel "Autonomous; level TBD"
     vocab:executes SouthPoleTraverse
     vocab:provides AutonomousNavigation
@@ -161,8 +162,8 @@ instance NavigationSubsystem : vocab:SubSystem [
     base:description "Perception and localization subsystem."
     base:priority "High"
     vocab:maturityLevel "Conceptual"
-    vocab:massKg "6.0 kg (illustrative sum of listed component estimates)"
-    vocab:powerConsumptionW "65 W (illustrative sum of listed component estimates)"
+    vocab:mass 6^^si:kg  //(illustrative sum of listed component estimates)
+    vocab:powerConsumption  65^^si:watt  //(illustrative sum of listed component estimates)
     vocab:autonomyLevel "N/A"
     vocab:composes NavCam
     vocab:composes OusterLiDAR
@@ -174,8 +175,8 @@ instance MobilitySubsystem : vocab:SubSystem [
     base:description "Drive and steering subsystem."
     base:priority "High"
     vocab:maturityLevel "Conceptual"
-    vocab:massKg "TBD" //TBD 
-    vocab:powerConsumptionW "TBD"
+    //vocab:massKg "TBD" //TBD 
+    //vocab:powerConsumption "TBD"
     vocab:autonomyLevel "N/A"
     vocab:composes WheelDriveMotor
 ]
@@ -185,8 +186,8 @@ instance NavCam : vocab:CameraSensor [
     base:description "Stereo navigation camera pair; candidate, Mars 2020 Navcam-class heritage."
     base:priority "Medium"
     vocab:maturityLevel "Candidate"
-    vocab:massKg "1.5 kg (estimate; stereo pair)"
-    vocab:powerConsumptionW "10 W (estimate)"
+    vocab:mass 1.5^^si:kg  // estimate; stereo pair
+    vocab:powerConsumption 10^^si:watt // (estimate)
     vocab:autonomyLevel "N/A"
     vocab:enables AutonomousNavigation
 ]
@@ -195,9 +196,9 @@ instance OusterLiDAR : vocab:LiDARSensor [
     base:description "3D LiDAR for hazard detection; candidate, Ouster OS-series (a space-qualified unit is required)."
     base:priority "Medium"
     vocab:maturityLevel "Candidate"
-    vocab:massKg "1.5 kg (estimate)"
-    vocab:powerConsumptionW "20 W (estimate)"
-    vocab:autonomyLevel "N/A"
+    vocab:mass 1.5^^si:kg   // (estimate)
+    vocab:powerConsumption 20^^si:watt // (estimate)
+    vocab:autonomyLevel "N/A" 
     vocab:enables AutonomousNavigation
 ]
 
@@ -205,8 +206,8 @@ instance HoneywellIMU : vocab:Sensor [
     base:description "Inertial measurement unit for dead reckoning; candidate, Honeywell HG4930."
     base:priority "High"
     vocab:maturityLevel "Candidate"
-    vocab:massKg "0.5 kg (estimate)"
-    vocab:powerConsumptionW "5 W (estimate)"
+    vocab:mass 0.5^^si:kg   // (estimate)
+    vocab:powerConsumption 5^^si:watt  // (estimate)
     vocab:autonomyLevel "N/A"
     vocab:enables AutonomousNavigation
 ]
@@ -215,8 +216,8 @@ instance KintexFPGA : vocab:FPGA [
     base:description "Radiation-tolerant FPGA for vision processing; candidate, AMD Xilinx XQRKU060 Kintex UltraScale."
     base:priority "High"
     vocab:maturityLevel "Candidate"
-    vocab:massKg "2.5 kg (estimate; processing board)"
-    vocab:powerConsumptionW "30 W (estimate)"
+    vocab:mass 1.36^^si:kg  // (estimate; processing board)
+    vocab:powerConsumption 10^^si:watt // estimate 
     vocab:autonomyLevel "N/A"
 ]
 
@@ -224,8 +225,8 @@ instance WheelDriveMotor : vocab:Actuator [
     base:description "Brushless wheel drive motor; candidate, Maxon EC-i series."
     base:priority "High"
     vocab:maturityLevel "Candidate"
-    vocab:massKg "0.4 kg (estimate per motor; exact variant TBD)"
-    vocab:powerConsumptionW "100 W (estimated input per motor; rating TBD)"
+    vocab:mass 0.4^^si:kg  // (estimate per motor; exact variant TBD)
+    vocab:powerConsumption 100^^si:watt // (estimated input per motor; rating TBD)
     vocab:autonomyLevel "N/A"
     vocab:drives RockerBogieLocomotion
 ]
@@ -234,8 +235,8 @@ instance solarPanel : vocab:Component [
     base:description "Triple-junction solar panel (typically GaAs-based cells); sizing and area TBD."
     base:priority "High"
     vocab:maturityLevel "Conceptual"
-    vocab:massKg "20 kg (preliminary array estimate; sizing TBD)"
-    vocab:powerGenerationW "500 W peak (preliminary estimate; illumination and sizing dependent)"
+    vocab:mass 20^^si:kg                // preliminary array estimate; sizing TBD
+    vocab:powerGeneration 500^^si:watt  //"500 W peak (preliminary estimate; illumination and sizing dependent)"
     vocab:autonomyLevel "N/A"
 ]
 
@@ -244,8 +245,8 @@ instance LunarReconnaissanceOrbiter : vocab:Satellite [
     base:description "NASA Lunar Reconnaissance Orbiter: source of south-polar imagery and terrain data (LOLA, LROC)."
     base:priority "Medium"
     vocab:maturityLevel "Operational"
-    vocab:massKg "1916 kg (approximate spacecraft launch mass)"
-    vocab:powerGenerationW "Up to 1850 W peak (approximate array capacity)"
+    vocab:mass 1916^^si:kg // (approximate spacecraft launch mass)
+    vocab:powerGeneration 1850^^si:watt  //"Up to 1850 W peak (approximate array capacity)"
     vocab:autonomyLevel "TBD"
 ]
 
@@ -253,8 +254,8 @@ instance LunarGateway : vocab:Satellite [
     base:description "Planned NASA-led lunar-orbit station; candidate communications relay."
     base:priority "Medium"
     vocab:maturityLevel "Planned"
-    vocab:massKg "TBD (configuration dependent)"
-    vocab:powerGenerationW "TBD (configuration dependent)"
+    //vocab:massKg "TBD (configuration dependent)"
+    //vocab:powerGeneration "TBD (configuration dependent)"
     vocab:autonomyLevel "TBD"
 ]
 
@@ -263,8 +264,8 @@ instance DSNGoldstone : vocab:GroundStation [
     base:description "NASA Deep Space Network, Goldstone, California (70 m antenna DSS-14)."
     base:priority "Medium"
     vocab:maturityLevel "Operational"
-    vocab:massKg "TBD"
-    vocab:powerConsumptionW "TBD"
+    //vocab:massKg "TBD"
+    //vocab:powerConsumptionW "TBD"
     vocab:antennaDiameterM "70 m"
 ]
 
@@ -272,8 +273,8 @@ instance DSNCanberra : vocab:GroundStation [
     base:description "NASA Deep Space Network, Canberra, Australia (70 m antenna DSS-43)."
     base:priority "Medium"
     vocab:maturityLevel "Operational"
-    vocab:massKg "TBD"
-    vocab:powerConsumptionW "TBD"
+    //vocab:massKg "TBD"
+    //vocab:powerConsumptionW "TBD"
     vocab:antennaDiameterM "70 m"
 ]
 
@@ -281,8 +282,8 @@ instance ESTRACKMalargue : vocab:GroundStation [
     base:description "ESA ESTRACK deep-space station at Malargue, Argentina (35 m antenna)."
     base:priority "Medium"
     vocab:maturityLevel "Operational"
-    vocab:massKg "TBD"
-    vocab:powerConsumptionW "TBD"
+    //vocab:massKg "TBD"
+    //vocab:powerConsumptionW "TBD"
     vocab:antennaDiameterM "35 m"
 ]
 

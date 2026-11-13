@@ -106,21 +106,18 @@ The current acceptance questions do not yet require a project-specific inference
 
 Containment is inverse-functional: each contained element can have at most one container. This matches the current single-owner decomposition; revisit it if shared containment is intended.
 
-From the repository root, use the OML CLI to start the workspace server, lint the source, and check logical consistency:
+Run these commands from the repository root:
 
-```powershell
-oml.cmd start
-oml.cmd lint
-oml.cmd reason
-```
+| Command | What it does |
+|---|---|
+| `oml.cmd start` | Starts the OML workspace server. |
+| `oml.cmd stop` | Stops the OML workspace server. |
+| `oml.cmd lint` | Checks the OML source for lint errors and warnings. |
+| `oml.cmd reason` | Checks the model for logical consistency. |
+| `oml.cmd reason --explanation` | Checks consistency and provides an explanation if the model is inconsistent. |
+| `oml.cmd reason --owl build/owl` | Checks consistency and writes OWL/Turtle reasoning artifacts under `build\owl`. |
 
-To persist reasoning output as OWL/Turtle artifacts under `build\owl`, run:
-
-```powershell
-oml.cmd reason --owl build/owl
-```
-
-`oml.cmd reason` checks consistency; it does not write output files unless `--owl` is supplied.
+`oml.cmd reason` does not write output files unless `--owl` is supplied.
 
 
 

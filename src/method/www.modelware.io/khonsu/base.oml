@@ -4,6 +4,7 @@ vocabulary <https://www.modelware.io/khonsu/base#> as base {
     extends <http://purl.org/dc/elements/1.1/> as dc
     extends <http://www.w3.org/2001/XMLSchema#> as xsd
 
+    // 1. aspects
     @dc:description "A general model element; the root of the Khonsu type hierarchy."
     aspect Element
 
@@ -22,12 +23,15 @@ vocabulary <https://www.modelware.io/khonsu/base#> as base {
     @dc:description "An element that can be categorized by arbitrary labels."
     aspect Categorized
 
+    // 2. concepts
     @dc:description "A boolean or logical test expressed as text; a subtype of Expressible."
     concept Condition < Expressible, Element
 
     @dc:description "An item represents information, material, or energy."
     concept Item < Categorized, Element
 
+
+    // 3. scalars & relations
     @dc:description "A priority level assigned to an element."
     scalar Priority [
         oneOf "Low", "Medium", "High"
@@ -42,6 +46,9 @@ vocabulary <https://www.modelware.io/khonsu/base#> as base {
         inverse functional
     ] < Element
 
+
+
+   // 4. properties
     @dc:description "A textual description attached to an Element."
     scalar property ^description [
         domain Element

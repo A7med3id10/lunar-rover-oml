@@ -37,13 +37,16 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     concept State < base:Element
 
     @dc:description "A Satellite is a space-based system."
-    concept Satellite < base:Element
+    concept Satellite < base:Element ,  base:Container  
 
     @dc:description "A GroundStation is a terrestrial system for communicating with space assets."
     concept GroundStation < base:Element
      
     @dc:description "A component is a part of a system."
     concept Component < base:Container, base:Contained, base:Element
+    [
+        restricts all base:isContainedBy to  Component
+    ]
 
     @dc:description "A Stakeholder is an entity that has interests in Requirements (people, organizations)."
     concept Stakeholder < base:Categorized, base:Element
@@ -184,27 +187,27 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
 
     @dc:description "The mass of the Component."
     quantity property mass [
-        domain Component
+        domain base:Container
         quantity isq:Mass
+        functional
+    ]
+
+    @dc:description "Power consumption in for powered assets."
+    quantity property powerConsumption [
+        domain base:Element
+        quantity isq:Power 
+        functional
+    ]
+ 
+    @dc:description "Power generated in watts by a physical system."
+    quantity property powerGeneration [
+        domain base:Element
+        quantity isq:Power 
         functional
     ]
 
     @dc:description "Lifecycle or model maturity status (for example, Conceptual, Preliminary, or Operational)."
     scalar property maturityLevel [
-        domain base:Element
-        range xsd:string
-        functional
-    ]
-
-    @dc:description "Mass in kilograms for physical assets, or TBD/N/A when unknown or not applicable."
-    scalar property massKg [
-        domain base:Element
-        range xsd:string
-        functional
-    ]
-
-    @dc:description "Power consumption in watts for powered assets, or TBD/N/A when unknown or not applicable."
-    scalar property powerConsumptionW [
         domain base:Element
         range xsd:string
         functional
@@ -259,12 +262,7 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
         functional
     ]
 
-    @dc:description "Power generated in watts by a physical system; use TBD until specified."
-    scalar property powerGenerationW [
-        domain base:Element
-        range xsd:string
-        functional
-    ]
+    
 
     @dc:description "Planned or measured mission duration in hours; use TBD when not established."
     scalar property missionDurationHours [
