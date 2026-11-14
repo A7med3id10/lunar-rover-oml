@@ -1,0 +1,37 @@
+@dc:title "Khonsu Concerns"
+description <https://khonsu.rover.github.io/concerns#> as concerns {
+    uses <http://purl.org/dc/elements/1.1/> as dc
+    uses <https://www.modelware.io/khonsu/base#> as base
+    uses <https://www.modelware.io/khonsu/vocabulary#> as vocab
+    extends <https://khonsu.rover.github.io/Stakeholders#> as Stakeholders
+
+    instance ThermalSurvivalConcern : vocab:Concern [
+        base:description "Protect the rover and its subsystems from extreme cold during lunar night and in permanently shadowed regions."
+        base:expression "The rover shall maintain safe operating temperatures throughout the traverse and planned hibernation periods."
+        base:priority "High"
+    ]
+
+    instance AutonomousNavigationConcern : vocab:Concern [
+        base:description "Navigate safely across the south-polar traverse without continuous ground intervention."
+        base:expression "The rover shall localize and plan a safe route autonomously when direct communication with Earth is unavailable."
+        base:priority "High"
+    ]
+
+    instance TerrainMobilityConcern : vocab:Concern [
+        base:description "Avoid wheel slip, entrapment, or loss of stability on loose regolith, slopes, and uneven terrain."
+        base:expression "The rover shall traverse the selected terrain within validated slope and obstacle limits."
+        base:priority "High"
+    ]
+
+    instance CommunicationAvailabilityConcern : vocab:Concern [
+        base:description "Maintain mission coordination when polar terrain blocks direct-to-Earth line of sight."
+        base:expression "The mission shall identify communication-loss conditions and provide a safe operating response during loss of signal."
+        base:priority "High"
+    ]
+
+    instance PowerAndEnduranceConcern : vocab:Concern [
+        base:description "Ensure available energy supports rover operations, communication, and the planned lunar-night hibernation."
+        base:expression "The rover shall monitor its energy state and preserve sufficient power for safe operation and recovery."
+        base:priority "High"
+    ]
+}

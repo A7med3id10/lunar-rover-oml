@@ -5,4 +5,5 @@ description bundle <https://khonsu.rover.github.io/bundle#> as d-bundle {
     uses <https://www.modelware.io/khonsu/bundle#>
     includes <https://khonsu.rover.github.io/instances#>
     includes <https://khonsu.rover.github.io/Stakeholders#>
+    includes <https://khonsu.rover.github.io/concerns#>
 }
