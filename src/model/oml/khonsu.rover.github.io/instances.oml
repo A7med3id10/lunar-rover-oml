@@ -4,6 +4,7 @@ description <https://khonsu.rover.github.io/instances#> as instances {
     uses <https://www.modelware.io/khonsu/base#> as base
     uses <https://www.modelware.io/khonsu/vocabulary#> as vocab 
     uses <http://opencaesar.io/si/> as si
+    extends <https://khonsu.rover.github.io/Stakeholders#> as Stakeholders
 
 // Part B - Basic system model
 
@@ -18,7 +19,7 @@ instance Mission1 : vocab:Mission [
         vocab:missionObjective "Explore lunar south-polar terrain and support surface science"
         vocab:decomposes SouthPoleTraverse
         vocab:isExecutedBy KhonsuRover
-        vocab:isOfInterestTo MissionOperationsTeam
+        vocab:isOfInterestTo Stakeholders:MissionOperationsTeam
     ]
 
 instance KhonsuRover : vocab:WheeledRover [
@@ -55,7 +56,6 @@ instance AutonomousNavigationRequirement : vocab:Requirement [
     base:priority "High"
     vocab:maturityLevel "Draft"
     vocab:requirementStatus "Proposed"
-    vocab:verificationMethod "Integrated navigation test and representative-terrain simulation; procedure TBD"
 ]
 
 instance MobilityRequirement : vocab:Requirement [
@@ -63,7 +63,25 @@ instance MobilityRequirement : vocab:Requirement [
     base:priority "High"
     vocab:maturityLevel "Draft"
     vocab:requirementStatus "Proposed"
-    vocab:verificationMethod "Mobility test on representative slope and regolith simulant; limits and procedure TBD"
+]
+
+instance NavVerification : vocab:VerificationActivity [
+    base:description "Integrated navigation test and representative-terrain simulation"
+    vocab:verificationStatus "Planned"
+    // procedure "TBD"
+]
+
+instance MobilityVerification : vocab:VerificationActivity [
+    base:description "Mobility test on representative slope and regolith simulant"
+    vocab:verificationStatus "Planned"
+]
+
+ref instance AutonomousNavigationRequirement : vocab:Requirement [
+    vocab:isVerifiedBy NavVerification 
+]
+
+ref instance MobilityRequirement : vocab:Requirement [
+    vocab:isVerifiedBy MobilityVerification
 ]
 
 // ===== Terrain =====
@@ -287,26 +305,7 @@ instance ESTRACKMalargue : vocab:GroundStation [
     vocab:antennaDiameterM "35 m"
 ]
 
-// ===== Stakeholders =====
-instance MissionOperationsTeam : vocab:Stakeholder [
-    base:description "Team that plans traverses and commands the rover."
-    base:priority "High"
-    vocab:maturityLevel "Identified"
-    vocab:teamSizePeople "6-10 people per shift (illustrative; shift coverage TBD)"
-    vocab:teamResponsibility "Plan traverses and command the rover"
-    vocab:hasInterestIn SouthPoleTraverse
-    base:category "Operations"
-]
 
-instance ScienceTeam : vocab:Stakeholder [
-    base:description "Team that defines payload and science objectives."
-    base:priority "High"
-    vocab:maturityLevel "Identified"
-    vocab:teamSizePeople "5-8 people (illustrative; payload scope TBD)"
-    vocab:teamResponsibility "Define payload and science objectives"
-    vocab:hasInterestIn SouthPoleTraverse
-    base:category "Science"
-]
 
 // ===== Conditions and states =====
 instance LinkLossCondition : base:Condition [

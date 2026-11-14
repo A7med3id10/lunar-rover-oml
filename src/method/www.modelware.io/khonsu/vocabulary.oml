@@ -4,6 +4,7 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     extends <http://www.w3.org/2001/XMLSchema#> as xsd
     extends <https://www.modelware.io/khonsu/base#> as base
     extends <http://opencaesar.io/isq/> as isq
+     
 
     // Part A - Initial vocabulary  
     
@@ -53,8 +54,10 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     
     @dc:description "A Capability is a feature that a system can perform."
     concept Capability < base:Element
-
     
+    @dc:description "A Verification Activity is a planned or executed activity to verify a requirement."
+    concept VerificationActivity < base:Element
+
 
 
     // Task 2: Taxonomy / specialization
@@ -285,12 +288,17 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
         functional
     ]
 
-    @dc:description "Planned verification approach for a requirement."
-    scalar property verificationMethod [
-        domain Requirement
-        range xsd:string
+
+    @dc:description "Status of verification approach for a requirement."
+    scalar property verificationStatus [ 
+        domain VerificationActivity 
+        range VerificationStatus 
         functional
-    ]
+        ]
+
+   scalar VerificationStatus [
+     oneOf "Planned", "InProgress", "Completed", "Failed" 
+     ]
 
     @dc:description "Expected lunar-night hibernation duration in hours; use TBD when not established."
     scalar property hibernationDurationHours [
@@ -486,5 +494,12 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
   ] < base:Element
   
 
-
+  @dc:description "A state is entered when a condition holds."
+  relation entity IsVerifiedBy [
+    from Requirement
+    to VerificationActivity
+    forward isVerifiedBy
+    reverse verifies
+  ] < base:Element 
+    
 }

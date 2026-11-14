@@ -112,6 +112,7 @@ Run these commands from the repository root:
 |---|---|
 | `oml.cmd start` | Starts the OML workspace server. |
 | `oml.cmd stop` | Stops the OML workspace server. |
+| `oml.cmd list` | Lists active OML servers and their workspaces. |
 | `oml.cmd lint` | Checks the OML source for lint errors and warnings. |
 | `oml.cmd reason` | Checks the model for logical consistency. |
 | `oml.cmd reason --explanation` | Checks consistency and provides an explanation if the model is inconsistent. |

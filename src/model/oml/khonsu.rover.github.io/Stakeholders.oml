@@ -1,0 +1,33 @@
+@dc:title "Khonsu Stakeholders"
+description <https://khonsu.rover.github.io/Stakeholders#> as Stakeholders {
+    uses <http://purl.org/dc/elements/1.1/> as dc
+    uses <https://www.modelware.io/khonsu/base#> as base
+    uses <https://www.modelware.io/khonsu/vocabulary#> as vocab
+    extends <https://khonsu.rover.github.io/instances#> as instances
+
+    instance MissionOperationsTeam : vocab:Stakeholder [
+        base:description "Team that plans traverses and commands the rover."
+        vocab:teamSizePeople "6-10 people per shift (illustrative; shift coverage TBD)"
+        vocab:teamResponsibility "Plan traverses and command the rover"
+        vocab:hasInterestIn instances:SouthPoleTraverse
+        base:category "Operations"
+    ]
+
+    instance ScienceTeam : vocab:Stakeholder [
+        base:description "Team that defines payload and science objectives."
+        vocab:teamSizePeople "5-8 people (illustrative; payload scope TBD)"
+        vocab:teamResponsibility "Define payload and science objectives"
+        vocab:hasInterestIn instances:SouthPoleTraverse
+        base:category "Science"
+    ]
+
+    instance MissionSponsor : vocab:Stakeholder
+
+    instance ProjectManager : vocab:Stakeholder
+
+    instance LeadSystemsEngineer : vocab:Stakeholder
+
+    instance SubsystemTechnicalLeads : vocab:Stakeholder
+
+    instance SafetyAndMissionAssuranceLead : vocab:Stakeholder
+}
