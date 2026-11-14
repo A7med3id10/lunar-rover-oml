@@ -23,7 +23,7 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     @dc:description "A role of a stakeholder."
     concept Responsibility < base:Expressible, base:Element
 
-    @dc:description "A role of a stakeholder."
+    @dc:description "A concern of a stakeholder."
     concept Concern < base:Expressible, base:Element
     
     @dc:description "A Hazard is a threat to the mission."

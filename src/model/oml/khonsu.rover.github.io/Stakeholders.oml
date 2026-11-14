@@ -29,22 +29,15 @@ description <https://khonsu.rover.github.io/Stakeholders#> as Stakeholders {
         base:description "Plan traverses and command the rover."
     ]
 
-    instance Stakeholder1 : vocab:Stakeholder [
-        base:description "ASD"
-        vocab:hasInterestIn instances:Mission1, instances:SouthPoleTraverse
+    instance ProjectManager : vocab:Stakeholder [
+        base:description "manages the teams"
+        vocab:hasInterestIn instances:Mission1
         vocab:teamSizePeople 1
     ]
 
-    instance Stakeholder2 : vocab:Stakeholder [
-        base:description "sdc"
+    instance SubsystemTechnicalLeads : vocab:Stakeholder [
+        base:description "Team Leaders of Design Teams of subsystems"
         vocab:hasInterestIn instances:Mission1
-        vocab:teamSizePeople 10
-    ]
-
-    instance Stakeholder3 : vocab:Stakeholder [
-        base:description "asd"
-        vocab:hasInterestIn instances:Mission1
-        vocab:teamSizePeople 1
-        vocab:IsResponsibleFor Resp1
+        vocab:teamSizePeople 7
     ]
 }

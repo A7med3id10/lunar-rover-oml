@@ -39,6 +39,7 @@ vocab:StakeholderShape
     sh:minExclusive 0;
     sh:minCount 1 ;
     sh:maxCount 1 ;
+    sh:message "A stakeholder team should have at least one member."
   ] ;
 
   
