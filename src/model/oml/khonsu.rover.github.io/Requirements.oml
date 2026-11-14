@@ -1,0 +1,88 @@
+
+@dc:title "Khonsu Requirements"
+description <https://khonsu.rover.github.io/Requirements#> as Requirements {
+    uses <http://purl.org/dc/elements/1.1/> as dc
+    uses <https://www.modelware.io/khonsu/base#> as base
+    uses <https://www.modelware.io/khonsu/vocabulary#> as vocab
+    extends <https://khonsu.rover.github.io/instances#> as instances
+
+    // --------------------------------------------------
+    // Part A - Mission Requirements
+    // --------------------------------------------------
+
+    instance REQ-MOB-001 : vocab:Requirement [
+        base:description "The rover shall provide mobility capability to traverse the lunar surface."
+        vocab:requirementStatus "Draft"
+        vocab:isPursuedBy instances:SouthPoleTraverse
+        vocab:isVerifiedBy VER-MOB-001
+    ]
+
+    instance REQ-MOB-002 : vocab:Requirement [
+        base:description "The rover shall traverse lunar terrain within its specified slope and obstacle limitations."
+        vocab:requirementStatus "Draft"
+        vocab:isPursuedBy instances:SouthPoleTraverse
+        vocab:isVerifiedBy VER-MOB-002
+    ]
+
+    instance REQ-NAV-001 : vocab:Requirement [
+        base:description "The rover shall determine its position and orientation during surface operations."
+        vocab:requirementStatus "Draft"
+        vocab:isPursuedBy instances:SouthPoleTraverse
+        vocab:isVerifiedBy VER-NAV-001
+    ]
+
+    instance REQ-NAV-002 : vocab:Requirement [
+        base:description "The rover shall provide terrain perception information to support autonomous navigation."
+        vocab:requirementStatus "Draft"
+        vocab:isPursuedBy instances:SouthPoleTraverse
+        vocab:isVerifiedBy VER-NAV-002
+    ]
+
+    instance REQ-COM-001 : vocab:Requirement [
+        base:description "The rover shall exchange operational and telemetry data with the ground segment."
+        vocab:requirementStatus "Draft"
+        vocab:isPursuedBy instances:SouthPoleTraverse
+        vocab:isVerifiedBy VER-COM-001
+    ]
+
+    instance REQ-PWR-001 : vocab:Requirement [
+        base:description "The rover shall manage its power consumption to support the planned mission activities."
+        vocab:requirementStatus "Draft"
+        vocab:isPursuedBy instances:SouthPoleTraverse
+        vocab:isVerifiedBy VER-PWR-001
+    ]
+
+    // --------------------------------------------------
+    // Part B - Verification Activities
+    // --------------------------------------------------
+
+    instance VER-MOB-001 : vocab:VerificationActivity [
+        base:description "Verify rover mobility capability through mobility subsystem testing."
+        vocab:verificationStatus "Planned"
+    ]
+
+    instance VER-MOB-002 : vocab:VerificationActivity [
+        base:description "Verify terrain slope and obstacle traversal performance through analysis and testing."
+        vocab:verificationStatus "Planned"
+    ]
+
+    instance VER-NAV-001 : vocab:VerificationActivity [
+        base:description "Verify position and orientation determination through navigation subsystem testing."
+        vocab:verificationStatus "Planned"
+    ]
+
+    instance VER-NAV-002 : vocab:VerificationActivity [
+        base:description "Verify terrain perception capability using representative lunar terrain scenarios."
+        vocab:verificationStatus "Planned"
+    ]
+
+    instance VER-COM-001 : vocab:VerificationActivity [
+        base:description "Verify telemetry and operational data exchange through communication link testing."
+        vocab:verificationStatus "Planned"
+    ]
+
+    instance VER-PWR-001 : vocab:VerificationActivity [
+        base:description "Verify rover power consumption against the mission power budget through analysis and testing."
+        vocab:verificationStatus "Planned"
+    ]
+}
