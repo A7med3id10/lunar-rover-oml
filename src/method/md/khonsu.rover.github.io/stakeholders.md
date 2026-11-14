@@ -10,6 +10,9 @@ template:
       defaultValue: ${context.ontology}
       required: true
 ---
+# Khonsu Stakeholders
+
+This page defines the Stakeholders for the Khonsu lunar rover. 
 
 
 ```table-editor
@@ -68,3 +71,4 @@ vocab:StakeholderShape
     sh:class vocab:Responsibility ;
     dash:readOnly true ;  
   ] .
+  

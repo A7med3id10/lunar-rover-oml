@@ -28,6 +28,10 @@ description <https://khonsu.rover.github.io/Stakeholders#> as Stakeholders {
     instance Resp2 : vocab:Responsibility [
         base:description "Plan traverses and command the rover."
     ]
+    instance Resp3 : vocab:Responsibility [
+        base:description "Responsibility 3."
+        vocab:IsAssignedTo Stakeholder1
+    ]
 
     instance ProjectManager : vocab:Stakeholder [
         base:description "manages the teams"
@@ -39,5 +43,11 @@ description <https://khonsu.rover.github.io/Stakeholders#> as Stakeholders {
         base:description "Team Leaders of Design Teams of subsystems"
         vocab:hasInterestIn instances:Mission1
         vocab:teamSizePeople 7
+    ]
+
+    instance Stakeholder1 : vocab:Stakeholder [
+        base:description "Try"
+        vocab:hasInterestIn instances:Mission1
+        vocab:teamSizePeople 3
     ]
 }
