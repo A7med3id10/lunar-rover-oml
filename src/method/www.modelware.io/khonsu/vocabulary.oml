@@ -65,7 +65,8 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     @dc:description "A Verification Activity is a planned or executed activity to verify a requirement."
     concept VerificationActivity < base:Element
 
-
+    @dc:description "Evidence generated or collected during a requirement verification activity."
+    concept VerificationEvidence < base:Element
 
     // Task 2: Taxonomy / specialization
 
@@ -419,7 +420,40 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
         functional
     ]
  
+    @dc:description "A unique identifier assigned to a requirement."
+    scalar property requirementId [
+        domain Requirement
+        range xsd:string
+        functional
+    ]
 
+    @dc:description "Classification of a requirement, such as Functional, Performance, Interface, Safety, or Environmental."
+    scalar property requirementType [
+        domain Requirement
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "The rationale explaining why a requirement is necessary."
+    scalar property requirementRationale [
+        domain Requirement
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "The method used to verify a requirement, such as Test, Analysis, Inspection, or Demonstration."
+    scalar property verificationMethod [
+        domain Requirement
+        range xsd:string
+        functional
+    ]
+
+    @dc:description "The acceptance criteria used to determine whether a requirement has been satisfied."
+    scalar property verificationCriteria [
+        domain Requirement
+        range xsd:string
+        functional
+    ]
   // Task 4: relations from/to/reverse
   @dc:description "A rover executes a mission."
   relation entity Executes [
@@ -507,6 +541,21 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     from Stakeholder
     to Responsibility
     reverse IsAssignedTo
-  ]  
+  ] 
+@dc:description "A requirement is allocated to a system element responsible for satisfying it."
+relation entity RequirementAllocation [
+    from Requirement
+    to base:Element
+    forward allocatedTo
+    reverse isAllocatedFrom
+] < base:Element
+
+@dc:description "A verification activity produces evidence demonstrating the outcome of verification."
+relation entity ProducesEvidence [
+    from VerificationActivity
+    to VerificationEvidence
+    forward producesEvidence
+    reverse isProducedBy
+] < base:Element
     
 }
