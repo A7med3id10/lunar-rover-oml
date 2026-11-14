@@ -7,27 +7,44 @@ description <https://khonsu.rover.github.io/Stakeholders#> as Stakeholders {
 
     instance MissionOperationsTeam : vocab:Stakeholder [
         base:description "Team that plans traverses and commands the rover."
-        vocab:teamSizePeople "6-10 people per shift (illustrative; shift coverage TBD)"
-        vocab:teamResponsibility "Plan traverses and command the rover"
+        vocab:teamSizePeople 6
+        vocab:IsResponsibleFor Resp2
         vocab:hasInterestIn instances:SouthPoleTraverse
         base:category "Operations"
     ]
 
     instance ScienceTeam : vocab:Stakeholder [
         base:description "Team that defines payload and science objectives."
-        vocab:teamSizePeople "5-8 people (illustrative; payload scope TBD)"
-        vocab:teamResponsibility "Define payload and science objectives"
+        vocab:teamSizePeople 5
         vocab:hasInterestIn instances:SouthPoleTraverse
         base:category "Science"
     ]
 
-    instance MissionSponsor : vocab:Stakeholder
+    instance Resp1 : vocab:Responsibility [
+        base:description "Define payload and science objectives."
+        vocab:IsAssignedTo ScienceTeam
+    ]
 
-    instance ProjectManager : vocab:Stakeholder
+    instance Resp2 : vocab:Responsibility [
+        base:description "Plan traverses and command the rover."
+    ]
 
-    instance LeadSystemsEngineer : vocab:Stakeholder
+    instance Stakeholder1 : vocab:Stakeholder [
+        base:description "ASD"
+        vocab:hasInterestIn instances:Mission1, instances:SouthPoleTraverse
+        vocab:teamSizePeople 1
+    ]
 
-    instance SubsystemTechnicalLeads : vocab:Stakeholder
+    instance Stakeholder2 : vocab:Stakeholder [
+        base:description "sdc"
+        vocab:hasInterestIn instances:Mission1
+        vocab:teamSizePeople 10
+    ]
 
-    instance SafetyAndMissionAssuranceLead : vocab:Stakeholder
+    instance Stakeholder3 : vocab:Stakeholder [
+        base:description "asd"
+        vocab:hasInterestIn instances:Mission1
+        vocab:teamSizePeople 1
+        vocab:IsResponsibleFor Resp1
+    ]
 }

@@ -19,6 +19,12 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
 
     @dc:description "A verifiable statement of a mission or system need."
     concept Requirement < base:Expressible, base:Element
+
+    @dc:description "A role of a stakeholder."
+    concept Responsibility < base:Expressible, base:Element
+
+    @dc:description "A role of a stakeholder."
+    concept Concern < base:Expressible, base:Element
     
     @dc:description "A Hazard is a threat to the mission."
     concept Hazard < base:Element
@@ -52,6 +58,7 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
     @dc:description "A Stakeholder is an entity that has interests in Requirements (people, organizations)."
     concept Stakeholder < base:Categorized, base:Element
     
+
     @dc:description "A Capability is a feature that a system can perform."
     concept Capability < base:Element
     
@@ -321,17 +328,10 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
         functional
     ]
 
-    @dc:description "Number of people assigned to a stakeholder team; use TBD until staffing is defined."
+    @dc:description "Number of people assigned to a stakeholder team."
     scalar property teamSizePeople [
         domain Stakeholder
-        range xsd:string
-        functional
-    ]
-
-    @dc:description "Primary operational responsibility of a stakeholder team."
-    scalar property teamResponsibility [
-        domain Stakeholder
-        range xsd:string
+        range xsd:integer
         functional
     ]
 
@@ -494,12 +494,19 @@ vocabulary <https://www.modelware.io/khonsu/vocabulary#> as khonsu {
   ] < base:Element
   
 
-  @dc:description "A state is entered when a condition holds."
+  @dc:description "A requirement is verified by a verification activity."
   relation entity IsVerifiedBy [
     from Requirement
     to VerificationActivity
     forward isVerifiedBy
     reverse verifies
   ] < base:Element 
+
+  @dc:description "A Stakeholder is responsible for a responsibility."
+  relation IsResponsibleFor [
+    from Stakeholder
+    to Responsibility
+    reverse IsAssignedTo
+  ]  
     
 }
