@@ -1,9 +1,16 @@
 ---
-ontology: https://khonsu.rover.github.io/Stakeholders
-title: Stakeholders
+template:
+  id: https://khonsu.rover.github.io/stakeholders
+  name: "Stakeholder Editor"
+  expose:
+    - kind: compose
+  params:
+    - id: ontology
+      type: iri
+      defaultValue: ${context.ontology}
+      required: true
 ---
-# Khonsu Stakeholders
-This table shows the stakeholders defined in the rover model. You can add or edit them.
+
 
 ```table-editor
 @prefix sh: <http://www.w3.org/ns/shacl#> .
