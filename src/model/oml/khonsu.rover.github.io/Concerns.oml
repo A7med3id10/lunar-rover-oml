@@ -1,5 +1,5 @@
 @dc:title "Khonsu Concerns"
-description <https://khonsu.rover.github.io/concerns#> as concerns {
+description <https://khonsu.rover.github.io/Concerns#> as concerns {
     uses <http://purl.org/dc/elements/1.1/> as dc
     uses <https://www.modelware.io/khonsu/base#> as base
     uses <https://www.modelware.io/khonsu/vocabulary#> as vocab
