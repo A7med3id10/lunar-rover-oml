@@ -1,0 +1,12 @@
+
+description <https://khonsu.rover.github.io/components#> as components {
+
+    uses <https://www.modelware.io/khonsu/vocabulary#> as khonsu
+
+    uses <https://www.modelware.io/khonsu/base#> as base
+
+    extends <https://khonsu.rover.github.io/instances#> as existing
+
+    // Component architecture instances will be authored here.
+
+}
