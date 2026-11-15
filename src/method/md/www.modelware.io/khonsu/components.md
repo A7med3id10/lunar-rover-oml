@@ -14,23 +14,7 @@ template:
 
 # Lunar Rover Component Architecture
 
-## Engineering Purpose
 
-This pattern supports the definition and management of
-the lunar rover's component architecture.
-
-Components are organized into subsystems and lower-level
-parts to provide a clear system decomposition.
-
-The pattern reuses the existing Khonsu vocabulary.
-
-## Modeling Guidance
-
-- Provide a meaningful description for each component.
-- Use component composition for nested hardware.
-- Use rover aggregation for top-level components.
-- Do not create self-referential component hierarchies.
-- Record architectural rationale separately from model facts.
 
 ## Component Editor
 

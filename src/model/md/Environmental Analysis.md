@@ -1,6 +1,5 @@
-
 ---
-ontology: https://khonsu.rover.github.io/bundle
+ontology: https://khonsu.rover.github.io/instances
 title: Lunar Environmental Assumptions Analysis
 ---
 
