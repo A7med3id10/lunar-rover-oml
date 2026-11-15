@@ -1,12 +1,45 @@
+@dc:title "Khonsu Rover Components"
+@dc:description "Component architecture of the Khonsu lunar rover."
 
 description <https://khonsu.rover.github.io/components#> as components {
 
+    uses <http://purl.org/dc/elements/1.1/> as dc
     uses <https://www.modelware.io/khonsu/vocabulary#> as khonsu
-
     uses <https://www.modelware.io/khonsu/base#> as base
 
     extends <https://khonsu.rover.github.io/instances#> as existing
 
-    // Component architecture instances will be authored here.
+    // =====================================================
+    // Component 1: Motor Controller
+    // =====================================================
+
+    instance MotorController : khonsu:Component [
+        base:description "Proposed electronic controller responsible for regulating the lunar rover's wheel drive motors; hardware selection TBD."
+        khonsu:isComposedIn existing:MobilitySubsystem
+        khonsu:maturityLevel "Conceptual"
+        base:priority "Medium"
+    ]
+
+    // =====================================================
+    // Component 2: Wheel Encoder Unit
+    // =====================================================
+
+    instance WheelEncoderUnit : khonsu:Component [
+        base:description "Proposed wheel rotation measurement unit providing feedback for rover mobility monitoring and motion estimation; design TBD."
+        khonsu:isComposedIn existing:MobilitySubsystem
+        khonsu:maturityLevel "Conceptual"
+        base:priority "Medium"
+    ]
+
+    // =====================================================
+    // Component 3: Suspension Assembly
+    // =====================================================
+
+    instance SuspensionAssembly : khonsu:Component [
+        base:description "Proposed mechanical suspension assembly supporting wheel loads and terrain articulation during lunar surface traversal; final configuration TBD."
+        khonsu:isComposedIn existing:MobilitySubsystem
+        khonsu:maturityLevel "Conceptual"
+        base:priority "Medium"
+    ]
 
 }
